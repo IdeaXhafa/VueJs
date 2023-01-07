@@ -8,7 +8,7 @@
         <h5 class="card-title">{{ books.title }}</h5>
         <p class="card-text">{{ books.author }}</p>
         <button class="btn btn-primary">Edit</button>
-        <button class="btn btn-danger">Delete</button>
+        <button @click="deleteBook" class="btn btn-danger">Delete</button>
       </div>
     </div>
     <button class="btn btn-primary">Add a Book</button>
@@ -38,6 +38,18 @@ export default {
               this.books.push(data)
           })
       }) 
+  },
+  methods: {
+    deleteBook() {
+      if(confirm("Are you sure?")) {                
+        db.collection('books').where('book_id', '==', parseInt(this.$route.params.book_id)).get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+          doc.ref.delete()
+          })
+        })
+      }
+    }  
   },
 }
 </script>

@@ -20,6 +20,13 @@
         </table>
         <router-link to="/dashboard" class="btn btn-secondary">Back</router-link>
         <button @click="deleteClient" class="btn btn-danger">Delete</button>
+        <router-link 
+            v-bind:to="{ 
+            name: 'edit-client', 
+            params: { c_id : parseInt(c_id) }}" >
+            <button class="btn btn-primary">Edit</button>
+        <!-- <i class="fa fa-pencil"></i> -->
+      </router-link>
     </div>
 </template>
 

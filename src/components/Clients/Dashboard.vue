@@ -24,30 +24,10 @@
                 <button class="btn btn-secondary">View</button>
                 <!-- <i class="fa fa-eye" aria-hidden="true"></i> -->
                 </router-link>
-                <button @click="deleteClient" class="btn btn-danger">Delete</button>
-                <button class="btn btn-primary">Edit</button>
                 </th>
             </tr>
         </tbody>
         </table>
-
-        
-        <!-- <ul class="collection with-header">
-            <li class="collection-header"><h4>Clients</h4></li>
-            <li v-for="client in client" v-bind:key="client.id" class="collection-item">
-                {{ client.c_id }} : 
-                {{ client.name }}
-
-                <button class="btn btn-primary">View</button>
-                <router-link class="secondary-content"
-                v-bind:to="{
-                name: 'view-client', 
-                params: {c_id: client.c_id}
-                }"
-                >
-                </router-link>
-            </li>
-        </ul> -->
 
     </div>
 </template>
@@ -76,17 +56,5 @@ export default {
             })
         }) 
     },
-    deleteClient() {
-        if(confirm("Are you sure?")) {
-            db.collection('client').where('c_id', '==',
-            this.$route.params.c_id).get()
-            .then(querySnapshot => {
-                querySnapshot.forEach(doc => {
-                    doc.ref.delete()
-                    this.$router.push('/dashboard')
-                })
-            })
-        }
-    }  
 }
 </script>
