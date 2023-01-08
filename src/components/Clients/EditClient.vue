@@ -18,6 +18,11 @@
             <input type="text" v-model="email" required>
           </div>
         </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" v-model="aktiv" required>
+          </div>
+        </div>
         <button type="submit" class="btn">Submit</button>
         <router-link to="/dashboard" class="btn grey">Cancel</router-link>
       </form>
@@ -35,7 +40,8 @@ export default {
     return {
         c_id: null,
         name: null,
-        email: null
+        email: null,
+        aktiv: null
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -45,6 +51,7 @@ export default {
               vm.c_id = doc.data().c_id
               vm.name = doc.data().name
               vm.email = doc.data().email
+              vm.aktiv = doc.data().aktiv
             })
           })
         })
@@ -59,6 +66,7 @@ export default {
               this.c_id = doc.data().c_id
               this.name = doc.data().name
               this.email = doc.data().email
+              this.aktiv = doc.data().aktiv
             })
           })
         },
@@ -69,6 +77,7 @@ export default {
                 c_id: this.c_id,
                 name: this.name,
                 email: this.email,
+                aktiv: this.aktiv
               })
               .then(() => {
                 this.$router.push({ name: 'view-client', params: { c_id: this.c_id }})

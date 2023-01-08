@@ -8,6 +8,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Aktiv</th>
             </tr>
         </thead>
         <tbody>
@@ -15,6 +16,7 @@
             <th scope="row">{{ c_id }}</th>
                 <td>{{ name }}</td>
                 <td>{{ email }}</td>
+                <td>{{ aktiv }}</td>
             </tr>
         </tbody>
         </table>
@@ -39,7 +41,8 @@ export default {
         return {
             c_id: null,
             name: null,
-            email: null
+            email: null,
+            aktiv: null
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -49,6 +52,7 @@ export default {
             vm.c_id = doc.data().c_id
             vm.name = doc.data().name
             vm.email = doc.data().email
+            vm.aktiv = doc.data().aktiv
           })
         })
       })
@@ -66,6 +70,7 @@ export default {
                     this.c_id = doc.data().c_id
                     this.name = doc.data().name
                     this.email = doc.data().email
+                    this.aktiv = doc.data().aktiv
                 })
             })
         },
