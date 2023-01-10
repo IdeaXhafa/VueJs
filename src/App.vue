@@ -1,10 +1,12 @@
 <template>
  
-  <Sidebar/>
+  <Sidebar v-if="!navigation"/>
   <div :style="{ 'margin-left': sidebarWidth }">
   <Home/>
+  <!-- <Navigation/> -->
   <router-view/>
   </div>
+  <!-- <Footer/> -->
   <!-- <nav>
     <router-link to="/"> Home </router-link> |
     <router-link to="/feed"> Feed </router-link> |
@@ -21,14 +23,39 @@
 import Sidebar from './components/sidebar/Sidebar.vue';
 import { sidebarWidth } from './components/sidebar/state';
 import { Home } from './views/Home.vue'
+import { Navigation } from './components/Nav/Navigation.vue';
+import Footer from './views/Footer.vue';
 
 export default {
   // name: 'App',
   components: {
       Sidebar,
       Home,
+      Navigation,
+      Footer,
       setup(){
         return { sidebarWidth }
+      },
+      data() {
+        return {
+          navigate: null,
+        }
+      },
+      created() {
+        this.checkRoute();
+      },
+      methods: {
+        checkRoute() {
+          if(this.$route.name === "login" || this.$route === "Signup") {
+            this.navigate = true;
+            return;
+          } this.navigate = false;
+        }
+      },
+      watch: {
+        $route() {
+          this.checkRoute();
+        },
       }
   }
 }

@@ -1,22 +1,30 @@
 <template>
-  <h1>Log In to an existing account</h1>
-  <p><input type="text" placeholder="Email" v-model="email" /></p>
-  <p><input type="password" placeholder="Password" v-model="password" /></p>
-  <p v-if="errMsg">{{ errMsg }}</p>
+  <div class="form-wrap">
+  <h3>Log In to an existing account</h3>
+    <div class="inputs">
+      <p><input type="text" placeholder="Email" v-model="email" /></p>
+      <p><input type="password" placeholder="Password" v-model="password" /></p>
+      <p v-if="errMsg">{{ errMsg }}</p>
+    </div>
   <p><button @click="signup" class="btn btn-primary">Submit</button></p>
   <p><button @click="signInWithGoogle" class="btn btn-secondary">Sign In With Google</button></p>
   <div class="ui message">
     Don't have an account?
     <router-link to="/signup">Register</router-link>
     <!-- <button @click="handleLogOut" v-if="isLoggedIn">Log Out</button> -->
+    </div>
   </div>
 </template>
 
 
-<script setup>
+<script >
 import { ref, onMounted } from "vue";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from 'vue-router'
+
+export default {
+  name: 'login',
+}
 
 const email = ref("");
 const password = ref("");
@@ -82,3 +90,10 @@ const signInWithGoogle = () => {
 // };
 
 </script>
+
+<style scoped>
+  .form-wrap{
+    margin: auto;
+    padding: 120px;
+  }
+</style>

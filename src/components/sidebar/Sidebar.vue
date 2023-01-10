@@ -58,14 +58,11 @@ const handleLogOut = () => {
         <SidebarLink to="/feed" icon="fas fa-columns">Feed</SidebarLink>
         <SidebarLink to="/signup" icon="fas fa-users">Sign Up</SidebarLink>
         <SidebarLink to="/login" icon="fas fa-users">Log In</SidebarLink>
-        <!-- <SidebarLink to="/books" icon="fas fa-users">Books</SidebarLink> -->
-
-        <SidebarLink to="/new" >New Client</SidebarLink>
-        <SidebarLink to="/:c_id" >View</SidebarLink>
-        <SidebarLink to="/edit/:c_id" icon="fas fa-users">Edit</SidebarLink>
-
         <SidebarLink to="/dashboard" icon="fas fa-users">Clients</SidebarLink>
         <SidebarLink to="/showbook" icon="fas fa-users">Books</SidebarLink>
+        <SidebarLink to="/read-pagesa" icon="fas fa-users">Pagesa</SidebarLink>
+        <SidebarLink to="/cards" icon="fas fa-users">Cards</SidebarLink>
+
         <!-- <SidebarLink>
         <button @click="handleLogOut" v-if="isLoggedIn">Log Out</button>
         test

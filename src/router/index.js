@@ -5,6 +5,8 @@ import ViewClient from '@/components/Clients/ViewClient'
 import EditClient from '@/components/Clients/EditClient'
 import NewClient from '@/components/Clients/NewClient'
 import ShowBook from "@/components/Books/ShowBook.vue";
+import ReadPagesa from "@/components/Pagesa/ReadPagesa.vue";
+import Cards from "@/components/Cards.vue";
 // import VueRouter from 'vue-router'
 // import BookList from '@/components/Books/BookList'
 // import AddBook from '@/components/Books/AddBook'
@@ -16,7 +18,7 @@ const router = createRouter({
     routes: [
         { path: "/", component: () => import("../views/Home.vue")},
         { path: "/signup", component: () => import("../views/Signup.vue")},
-        { path: "/login", component: () => import("../views/Login.vue")},
+        { path: "/login",name: 'login', component: () => import("../views/Login.vue")},
         { path: "/feed", component: () => import("../views/Feed.vue"),
         meta: {
             requiresAuth: true,
@@ -28,7 +30,9 @@ const router = createRouter({
         { path: '/new', name: 'new-client', component: NewClient},
         { path: '/edit/:c_id', name: 'edit-client', component: EditClient},
         { path: '/:c_id', name: 'view-client', component: ViewClient},
-        { path: '/showbook', name: 'show-book', component: ShowBook}
+        { path: '/showbook', name: 'show-book', component: ShowBook},
+        { path: '/read-pagesa', name: 'read-pagesa', component: ReadPagesa},
+        { path: '/cards', name: 'cards', component: Cards}
     ],
 });
 

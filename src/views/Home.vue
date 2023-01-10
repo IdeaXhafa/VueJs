@@ -18,12 +18,14 @@
 
 <script setup >
 import { Icon } from '@iconify/vue'
+import Footer from './Footer.vue';
+
 </script>
 
 <template>
-  <Icon icon="dashicons:admin-site"
+  <!-- <Icon icon="dashicons:admin-site"
   />
-  Home Page
+  Home Page -->
 
   <div>
     <br/>
@@ -32,6 +34,13 @@ import { Icon } from '@iconify/vue'
     <br/>
     <br/>
     <br/>
+  </div>
+
+  <div class="home">
+    <h3>Welcome to e-books!</h3>
+    <br/>
+    <br/>
+    
   </div>
 
   <div class="icons">
@@ -65,7 +74,7 @@ import { Icon } from '@iconify/vue'
             <p>call us anytime</p>
         </div>
     </div>
-
+    <Footer/>
 </template>
 
 <style scoped>
