@@ -31,7 +31,7 @@ export default {
   components: {
       Sidebar,
       Home,
-      Navigation,
+      // Navigation,
       Footer,
       setup(){
         return { sidebarWidth }

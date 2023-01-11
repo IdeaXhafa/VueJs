@@ -11,7 +11,9 @@
         <button @click="deleteBook" class="btn btn-danger">Delete</button>
       </div>
     </div>
-    <button class="btn btn-primary">Add a Book</button>
+    <router-link to="/addbook">
+      <button class="btn btn-primary">Add a Book</button>
+    </router-link>
   </div>
 </template>
 

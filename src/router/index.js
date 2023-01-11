@@ -7,9 +7,9 @@ import NewClient from '@/components/Clients/NewClient'
 import ShowBook from "@/components/Books/ShowBook.vue";
 import ReadPagesa from "@/components/Pagesa/ReadPagesa.vue";
 import Cards from "@/components/Cards.vue";
+import AddBook from "@/components/Books/AddBook.vue";
 // import VueRouter from 'vue-router'
 // import BookList from '@/components/Books/BookList'
-// import AddBook from '@/components/Books/AddBook'
 // import ShowBook from '@/components/Books/ShowBook'
 // import EditBook from '@/components/Books/EditBook'
 
@@ -32,7 +32,8 @@ const router = createRouter({
         { path: '/:c_id', name: 'view-client', component: ViewClient},
         { path: '/showbook', name: 'show-book', component: ShowBook},
         { path: '/read-pagesa', name: 'read-pagesa', component: ReadPagesa},
-        { path: '/cards', name: 'cards', component: Cards}
+        { path: '/cards', name: 'cards', component: Cards},
+        { path: '/addbook', name: 'AddBook', component: AddBook}
     ],
 });
 

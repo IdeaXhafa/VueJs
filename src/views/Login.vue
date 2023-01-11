@@ -17,14 +17,14 @@
 </template>
 
 
-<script >
+<script setup>
 import { ref, onMounted } from "vue";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from 'vue-router'
 
-export default {
-  name: 'login',
-}
+// export default {
+//   name: 'login',
+// }
 
 const email = ref("");
 const password = ref("");

@@ -1,80 +1,75 @@
 <template>
-    <b-row>
-      <b-col cols="12">
-        <h2>
-          Add Book
-          <b-link href="#/">(Book List)</b-link>
-        </h2>
-        <b-jumbotron>
-          <b-form @submit="onSubmit">
-            <b-form-group id="titleGroup"
-                      horizontal
-                      :label-cols="4"
-                      breakpoint="md"
-                      label="Enter Title">
-              <b-form-input id="title" v-model.trim="book.title"></b-form-input>
-            </b-form-group>
-            <b-form-group id="descGroup"
-                      horizontal
-                      :label-cols="4"
-                      breakpoint="md"
-                      label="Enter Description">
-                <b-form-textarea id="description"
-                           v-model="book.description"
-                           placeholder="Enter something"
-                           :rows="2"
-                           :max-rows="6">{{book.description}}</b-form-textarea>
-            </b-form-group>
-            <b-form-group id="authorGroup"
-                      horizontal
-                      :label-cols="4"
-                      breakpoint="md"
-                      label="Enter Author">
-              <b-form-input id="author" v-model.trim="book.author"></b-form-input>
-            </b-form-group>
-            <b-button type="submit" variant="primary">Save</b-button>
-          </b-form>
-        </b-jumbotron>
-      </b-col>
-    </b-row>
-  </template>
-  
-  <script>
-  
-  import firebase from '../../firebase'
-  import router from '../../router/index'
-  
-  export default {
-    name: 'AddBook',
-    data () {
-      return {
-        ref: firebase.firestore().collection('books'),
-        book: {}
-      }
-    },
-    methods: {
-      onSubmit (evt) {
-        evt.preventDefault()
-  
-        this.ref.add(this.book).then((docRef) => {
-          this.book.title = ''
-          this.book.description = ''
-          this.book.author = ''
-          router.push({
-            name: 'BookList'
+  <div id="addbook">
+    <h3>New Book</h3>
+    <div class="row">
+    <form @submit.prevent="saveEmployee" class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" v-model="book_id" required>
+          <label>Book ID#</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" v-model="title" required>
+          <label>title</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" v-model="author" required>
+          <label>author</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- <div class="input-field col s12"> -->
+          <input type="file" @change="uploadImage" class="form-control">
+          <label>Upload a Photo</label>
+        <!-- </div> -->
+      </div>
+      <button type="submit" class="btn">Submit</button>
+      <router-link to="/showbook" class="btn grey">Cancel</router-link>
+    </form>
+  </div>
+  </div>
+</template>
+
+<script>
+import { db, fb } from '../../firebase'
+
+    export default {
+      name: 'addbook',
+      data () {
+        return {
+          book_id: null,
+          title: null,
+          author: null
+        }
+      },
+      methods: {
+        saveEmployee () {
+          db.collection('books').add({
+            book_id: this.book_id,
+            title: this.title,
+            author: this.author
           })
-        })
-        .catch((error) => {
-          alert("Error adding document: ", error);
-        });
+          .then(docRef => {
+            console.log('Book added: ', docRef.id)
+            this.$router.push('/showbook')
+          })
+          .catch(error => {
+            console.error('Error adding book: ', error)
+          })
+        },
+        uploadImage(e) {
+
+          let file = e.target.files[0];
+          var storageRef = fb.storage().ref('bookPhotos/' + file.name);
+          storageRef.put(file);
+
+          console.log(e.target.files[0]);
+        }
       }
     }
-  }
-  </script>
-  
-  <style>
-    .jumbotron {
-      padding: 2rem;
-    }
-  </style>
+</script>
   
