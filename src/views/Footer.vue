@@ -34,13 +34,12 @@ export default ({
 
 <style scoped>
     footer{
-        position: fixed;
+        /* position: fixed; */
         bottom: 0;
         width: 100%;
         margin-top: auto;
-        padding: 100px 25px;
+        /* padding: 100px 25px; */
         background-color: #303030;
-
     }
     .container{
         display: flex;
