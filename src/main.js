@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-free'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+//import store from './components/store'
 
 // Import the functions you need from the SDKs you need
 // import { initializeApp } from "firebase/app";
@@ -67,5 +68,5 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 const app = createApp(App)
 
 app.use(router)
-
+// app.use(store)
 app.mount('#app')

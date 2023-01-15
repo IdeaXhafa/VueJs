@@ -16,11 +16,14 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref, onMounted } from "vue";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from 'vue-router'
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+//import store from '../components/store/index';
 
 // export default {
 //   name: 'login',
@@ -34,8 +37,22 @@ const router = useRouter();
 const signup = () => {
   signInWithEmailAndPassword(getAuth(), email.value, password.value)
   .then((data) => {
-    console.log("Successfully registered!");
+    console.log("Successfully logged in!");
     router.push('/feed') //redirect to feed once registered
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          console.log(getAuth(), email.value)
+        // User is signed in.
+        // var email = user.email;
+        // var uid = user.uid;
+        // console.log("logged")
+        // ...
+      } else {
+        // User is signed out.
+        // ...
+        console.log("You're not logged in !")
+      }
+    });
   })
   .catch((error) => {
     console.log(error.code);
@@ -95,5 +112,8 @@ const signInWithGoogle = () => {
   .form-wrap{
     margin: auto;
     padding: 120px;
+    width: 40%;
+    box-shadow: 0px -1px 12px #555555;
+    border-radius: 20px;
   }
 </style>

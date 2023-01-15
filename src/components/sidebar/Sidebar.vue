@@ -5,23 +5,31 @@ import { getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
 import { useRouter } from 'vue-router';
 import SidebarLink from './SidebarLink.vue'
 import { Icon } from '@iconify/vue'
+import Login from '@/views/Login.vue';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 export default {
     props: {
 
     },
     components: { 
-      SidebarLink 
+      SidebarLink,
+      Login 
     },
     setup() {
         return { 
-          collapsed, toggleSidebar, sidebarWidth
+          collapsed, 
+          toggleSidebar, 
+          sidebarWidth
         }
     },
 }
 
 const router = useRouter();
 const isLoggedIn = ref(false);
+const email = ref("");
 
 let auth;
 onMounted(()=> {
@@ -35,12 +43,21 @@ onMounted(()=> {
   });
 });
 
-
 const handleLogOut = () => {
   signOut(auth).then(() => {
     router.push("/");
   });
 };
+
+const getUser =  () => {
+  firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          console.log(getAuth(), email.value)
+      } else {
+        console.log("You're not logged in !")
+      }
+    });
+}
 
 </script>
 
@@ -58,6 +75,7 @@ const handleLogOut = () => {
         <SidebarLink to="/feed" icon="fas fa-columns">Feed</SidebarLink>
         <SidebarLink to="/signup" icon="fas fa-users">Sign Up</SidebarLink>
         <SidebarLink to="/login" icon="fas fa-users">Log In</SidebarLink>
+        <p>{{ email }}</p>
         <SidebarLink to="/dashboard" icon="fas fa-users">Clients</SidebarLink>
         <SidebarLink to="/showbook" icon="fas fa-users">Books</SidebarLink>
         <SidebarLink to="/read-pagesa" icon="fas fa-users">Pagesa</SidebarLink>
@@ -71,7 +89,8 @@ const handleLogOut = () => {
         :class="{ 'rotate-180': collapsed }"
         @click="toggleSidebar"
         >
-        <i class="fas fa-angle-double-left"></i>
+        <!-- <i class="fas fa-angle-left"></i> -->
+        <img src="../../assets/arrow-left.png" width = "20" height = "20">
         </span>
 
         <!-- <nav>

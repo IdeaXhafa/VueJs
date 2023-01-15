@@ -7,7 +7,15 @@
         <h6>{{ books.book_id }}</h6>
         <h5 class="card-title">{{ books.title }}</h5>
         <p class="card-text">{{ books.author }}</p>
-        <button class="btn btn-primary">Edit</button>
+        <button class="btn btn-primary" v-bind:to="{ 
+            name: 'EditBook', 
+            params: { book_id : parseInt(this.$route.params.book_id) }}" >Edit</button>
+        <!-- <router-link 
+            v-bind:to="{ 
+            name: 'EditBook', 
+            params: { book_id : parseInt(book_id) }}" >
+            <button class="btn btn-primary">Edit</button>
+        </router-link> -->
         <button @click="deleteBook" class="btn btn-danger">Delete</button>
       </div>
     </div>

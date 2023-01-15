@@ -28,6 +28,9 @@ import {
 import { useRouter } from "vue-router";
 import { doc, setDoc } from "@firebase/firestore";
 import { db } from "@/firebase";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 // export default {
 //   name: 'signup',
@@ -65,6 +68,16 @@ const signInWithGoogle = () => {
     .then((result) => {
       console.log(result.user);
       router.push("/feed");
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          console.log(email.value)
+        // User is signed in.
+      } else {
+        // User is signed out.
+        // ...
+        console.log("You're not logged in !")
+      }
+    });
     })
     .catch((error) => {
       //handle error
@@ -76,5 +89,8 @@ const signInWithGoogle = () => {
 .form-wrap {
   margin: auto;
   padding: 120px;
+  width: 40%;
+  box-shadow: 0px -1px 12px #555555;
+  border-radius: 20px;
 }
 </style>

@@ -25,6 +25,8 @@ import { sidebarWidth } from './components/sidebar/state';
 import { Home } from './views/Home.vue'
 import { Navigation } from './components/Nav/Navigation.vue';
 import Footer from './views/Footer.vue';
+import firebase from 'firebase/compat/app';
+import "firebase/auth"
 
 export default {
   // name: 'App',
@@ -42,6 +44,13 @@ export default {
         }
       },
       created() {
+        console.log(user)
+        firebase.auth().onAuthStateChanged((user) => {
+          this.$store.commit("updateUser", user);
+          if(user) {
+            this.$store.dispatch("getCurrentUser");
+          }
+        })
         this.checkRoute();
       },
       methods: {
