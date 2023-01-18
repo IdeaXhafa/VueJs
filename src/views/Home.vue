@@ -39,7 +39,7 @@ import Footer from './Footer.vue';
     </div>
 
     <div class="deals">
-        <h3>Deal of the Day !</h3>
+        <h3 style="align-items: center;">Deal of the Day !</h3>
         <h2>Up To 50 % Off</h2>
         <h3>For the 5 first purchases as a client</h3>
         <h6>Want to become a client?</h6>

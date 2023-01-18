@@ -5,6 +5,8 @@
     <div class="card" style="width: 18rem;" v-for="books in books" v-bind:key="books.id">
       <div class="card-body">
         <h6>{{ books.book_id }}</h6>
+        <img v-bind:src="images"/>
+        <!-- <div {{ books.images }}></div> -->
         <h5 class="card-title">{{ books.title }}</h5>
         <p class="card-text">{{ books.author }}</p>
         <button class="btn btn-primary" v-bind:to="{ 
@@ -32,7 +34,8 @@ export default {
   name: 'show-book',
   data() {
       return {
-          books: []
+          books: [],
+          images: []
       }
   },
   created () {
@@ -43,7 +46,8 @@ export default {
                   'id': doc.id,
                   'book_id': doc.data().book_id,
                   'title': doc.data().title,
-                  'author': doc.data().author
+                  'author': doc.data().author,
+                  'images': doc.data().images
               }
               this.books.push(data)
           })

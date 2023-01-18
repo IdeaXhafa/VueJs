@@ -1,7 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import "firebase/storage";
-import { getStorage } from "firebase/storage";
+import "firebase/compat/storage";
+//import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDCrOv4DeyYTAvBXJIIhGsMRuhrl6GApm0",
@@ -13,11 +13,12 @@ const firebaseConfig = {
     measurementId: "G-MJ3R5RSSHC"
 };
 
-// const storageRef = firebase.storage().ref();
+//const storageRef = firebase.storage().ref();
 const fb = firebase.initializeApp(firebaseConfig);
-const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+//const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 const db = firebase.firestore();
-const storage = getStorage(fb);
+// const storage = getStorage(fb);
+const storage = fb.storage()
 
-export { timestamp, fb, db };
+export { fb, db };
 // export const db = fb.firestore();

@@ -8,6 +8,7 @@ import ShowBook from "@/components/Books/ShowBook.vue";
 import ReadPagesa from "@/components/Pagesa/ReadPagesa.vue";
 import Cards from "@/components/Cards.vue";
 import AddBook from "@/components/Books/AddBook.vue";
+import dashboard from "@/components/admin/dashboard.vue";
 // import VueRouter from 'vue-router'
 // import BookList from '@/components/Books/BookList'
 // import ShowBook from '@/components/Books/ShowBook'
@@ -33,7 +34,8 @@ const router = createRouter({
         { path: '/showbook', name: 'show-book', component: ShowBook},
         { path: '/read-pagesa', name: 'read-pagesa', component: ReadPagesa},
         { path: '/cards', name: 'cards', component: Cards},
-        { path: '/addbook', name: 'AddBook', component: AddBook}
+        { path: '/addbook', name: 'AddBook', component: AddBook},
+        { path: '/dash', component: () => import("../components/admin/dashboard.vue")}
     ],
 });
 

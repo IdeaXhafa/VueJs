@@ -65,8 +65,7 @@ const getUser =  () => {
     <div class="sidebar" :style="{width: sidebarWidth}">
         <h1>
             <span v-if="collapsed">
-                <div>V</div>
-                <div>S</div>
+              <img src="../../assets/books.png" width = "30" height = "30">
             </span>
             <span v-else>e-books</span>
         </h1>
@@ -80,6 +79,7 @@ const getUser =  () => {
         <SidebarLink to="/showbook" icon="fas fa-users">Books</SidebarLink>
         <SidebarLink to="/read-pagesa" icon="fas fa-users">Pagesa</SidebarLink>
         <SidebarLink to="/cards" icon="fas fa-users">Cards</SidebarLink>
+        <SidebarLink to="/dash" icon="fas fa-users">Dashboard</SidebarLink>
 
         <!-- <SidebarLink>
         <button @click="handleLogOut" v-if="isLoggedIn">Log Out</button>
