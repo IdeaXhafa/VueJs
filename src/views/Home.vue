@@ -5,7 +5,6 @@ import Footer from './Footer.vue';
 </script>
 
 <template>
-
   <div class="home">
     <img src="../assets/b.jpeg" class="bookPic">
     <br/>

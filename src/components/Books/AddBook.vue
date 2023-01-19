@@ -28,8 +28,11 @@
         </div>
       </div>
       <div class="form-group d-flex">
-        <div class="p-1" v-for="image in images" :key="image">
-          <img :src="image" alt="" style="width:130px"/>
+        <div class="p-1" v-for="(image,index) in images" :key="image">
+          <div class="img-wrap">
+            <img :src="image" alt="" style="width:130px"/>
+            <span class="delete-img" @click="deleteImage(image, index)">x</span>
+          </div>
         </div>
       </div>
       <button type="submit" class="btn">Submit</button>
@@ -53,6 +56,17 @@ import { db, fb } from '../../firebase'
         }
       },
       methods: {
+
+        deleteImage(img, index) {
+          let image = fb.storage().refFromURL(img);
+
+          this.images.splice(index,1)
+          image.delete().then(function() {
+            console.log('image deleted');
+          }).catch(function(error){
+            console.log('an error occured');
+          })
+        },
         saveEmployee () {
           db.collection('books').add({
             book_id: this.book_id,
@@ -91,4 +105,18 @@ import { db, fb } from '../../firebase'
       }
     }
 </script>
+
+<style scoped>
+.img-wrap{
+  position: relative;
+}
+.img-wrap span.delete-img{
+  position: absolute;
+  top: -14px;
+  left: -2px;
+}
+.img-wrap span.delete-img:hover{
+  cursor: pointer;
+}
+</style>
   

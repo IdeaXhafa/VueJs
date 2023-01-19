@@ -3,7 +3,7 @@
   <Sidebar v-if="!navigation"/>
   <div :style="{ 'margin-left': sidebarWidth }">
   <Home/>
-  <!-- <Navigation/> -->
+  <Navigation/>
   <router-view/>
   </div>
   <!-- <Footer/> -->
@@ -23,7 +23,7 @@
 import Sidebar from './components/sidebar/Sidebar.vue';
 import { sidebarWidth } from './components/sidebar/state';
 import { Home } from './views/Home.vue'
-import { Navigation } from './components/Nav/Navigation.vue';
+import Navigation from './components/Nav/Navigation.vue';
 import Footer from './views/Footer.vue';
 import firebase from 'firebase/compat/app';
 import "firebase/auth"
@@ -31,9 +31,9 @@ import "firebase/auth"
 export default {
   // name: 'App',
   components: {
+      Navigation,
       Sidebar,
       Home,
-      // Navigation,
       Footer,
       setup(){
         return { sidebarWidth }
