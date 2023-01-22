@@ -47,7 +47,7 @@ const signup = async () => {
       email.value,
       password.value
     );
-    await setDoc(doc(db, "users", res.user.uid),{role: "user"});
+    await setDoc(doc(db, "users", res.user.uid),{role: "user", email: email.value, password: password.value});
 
     router.push("/feed"); //redirect to feed once registered
   } catch (error) {

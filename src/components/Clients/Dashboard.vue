@@ -2,7 +2,7 @@
     <h3>Dashboard</h3>
     <h3>Clients</h3>
     <div id="dashboard">
-        <table class="table table-bordered" width="100%" cellspacing="0">
+        <table class="table table-bordered" style="width:50%; margin-left: auto;margin-right: auto;">
         <thead>
             <tr>
                 <th scope="col">#</th>

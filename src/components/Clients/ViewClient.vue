@@ -2,7 +2,7 @@
     <div id="view-client">
         <h3>View Client</h3>
 
-        <table class="table" >
+        <table class="table" style="width:50%; margin-left: auto;margin-right: auto;">
         <thead>
             <tr>
                 <th scope="col">#</th>

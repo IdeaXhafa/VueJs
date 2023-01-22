@@ -9,10 +9,11 @@ import ReadPagesa from "@/components/Pagesa/ReadPagesa.vue";
 import Cards from "@/components/Cards.vue";
 import AddBook from "@/components/Books/AddBook.vue";
 import dashboard from "@/components/admin/dashboard.vue";
+import ViewBook from "@/components/Books/ViewBook.vue";
+import EditBook from "@/components/Books/EditBook.vue";
+import Admin from "@/components/auth/Admin.vue";
+import CreateUser from "@/components/auth/CreateUser.vue";
 // import VueRouter from 'vue-router'
-// import BookList from '@/components/Books/BookList'
-// import ShowBook from '@/components/Books/ShowBook'
-// import EditBook from '@/components/Books/EditBook'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -35,6 +36,10 @@ const router = createRouter({
         { path: '/read-pagesa', name: 'read-pagesa', component: ReadPagesa},
         { path: '/cards', name: 'cards', component: Cards},
         { path: '/addbook', name: 'AddBook', component: AddBook},
+        { path: '/:book_id', name: 'view-book', component: ViewBook},
+        { path: '/edit/:book_id', name: 'edit-book', component: EditBook},
+        { path: '/all-users', name: 'all-users', component: Admin},
+        { path: '/create-user', name: 'create-user', component: CreateUser},
         { path: '/dash', component: () => import("../components/admin/dashboard.vue")}
     ],
 });

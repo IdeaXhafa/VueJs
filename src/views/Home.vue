@@ -1,7 +1,7 @@
 <script setup >
 import { Icon } from '@iconify/vue'
 import Footer from './Footer.vue';
-
+import { ShowBook } from '../components/Books/ShowBook.vue'
 </script>
 
 <template>
@@ -36,7 +36,7 @@ import Footer from './Footer.vue';
             <p>call us anytime</p>
         </div>
     </div>
-
+    <ShowBook/>
     <div class="deals">
         <h3 style="align-items: center;">Deal of the Day !</h3>
         <h2>Up To 50 % Off</h2>
@@ -51,12 +51,14 @@ import Footer from './Footer.vue';
 
 .home{
   background-color: white;
+  padding: 80px;
 }
 .icons{
-  background-color: #D3D3D3;
+  background-color: #d3d3d3c6;
   height: 100%;
   width: 100%;
   display: flex;
+  padding: 90px;
 }
 .content1{
   width: 35%;
@@ -78,9 +80,10 @@ import Footer from './Footer.vue';
   padding-right: 30px; 
 }
 .deals{
-  background-color: #b5cae9;
+  background-color: #D3D3D3;
   height: 400px;
   justify-content: center;
   align-items: center;
+  padding: 80px;
 }
 </style>
