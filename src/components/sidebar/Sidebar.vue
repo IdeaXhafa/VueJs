@@ -9,6 +9,7 @@ import Login from '@/views/Login.vue';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { Signup } from '../../views/Signup.vue'
 
 export default {
     props: {
@@ -49,6 +50,16 @@ const handleLogOut = () => {
   });
 };
 
+const logout = document.querySelector('#logout');
+    if(logout){
+        logout.addEventListener('click', (e) => {
+        e.preventDefault();
+        auth.signOut().then(()=> {
+            console.log("user signed out!")
+        })
+        })
+    }
+
 const getUser =  () => {
   firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -74,18 +85,20 @@ const getUser =  () => {
         <SidebarLink to="/feed" icon="fas fa-columns">Feed</SidebarLink>
         <SidebarLink to="/signup" icon="fas fa-users">Sign Up</SidebarLink>
         <SidebarLink to="/login" icon="fas fa-users">Log In</SidebarLink>
-        <p>{{ email }}</p>
+        <SidebarLink to="/logout" icon="fas fa-users" id="logout">Log Out</SidebarLink>
+        <!-- <p>{{ email }}</p> -->
         <SidebarLink to="/dashboard" icon="fas fa-users">Clients</SidebarLink>
         <SidebarLink to="/showbook" icon="fas fa-users">Books</SidebarLink>
         <SidebarLink to="/read-pagesa" icon="fas fa-users">Pagesa</SidebarLink>
         <SidebarLink to="/cards" icon="fas fa-users">Cards</SidebarLink>
         <SidebarLink to="/dash" icon="fas fa-users">Dashboard</SidebarLink>
         <SidebarLink to="/all-users" icon="fas fa-users">Admin Dashboard</SidebarLink>
+        <SidebarLink to="/contact">Contact Us</SidebarLink>
 
         <!-- <SidebarLink>
-        <button @click="handleLogOut" v-if="isLoggedIn">Log Out</button>
-        test
+        <button @click="handleLogOut" v-if="!isLoggedIn">Log Out</button>
         </SidebarLink> -->
+
         <span class="collapse-icon"
         :class="{ 'rotate-180': collapsed }"
         @click="toggleSidebar"

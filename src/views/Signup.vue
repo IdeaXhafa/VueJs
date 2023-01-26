@@ -50,9 +50,19 @@ const signup = async () => {
     await setDoc(doc(db, "users", res.user.uid),{role: "user", email: email.value, password: password.value});
 
     router.push("/feed"); //redirect to feed once registered
+    
   } catch (error) {
     throw error;
   }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          console.log(getAuth(), email.value)
+      } else {
+        console.log("You're not logged in !")
+      }
+  });
+
   // .then((data) => {
 };
 //   })

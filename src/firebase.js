@@ -2,6 +2,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 //import { getStorage } from "firebase/storage";
+//import store from "./components/store";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDCrOv4DeyYTAvBXJIIhGsMRuhrl6GApm0",
@@ -16,6 +17,11 @@ const firebaseConfig = {
 //const storageRef = firebase.storage().ref();
 const fb = firebase.initializeApp(firebaseConfig);
 //const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+
+firebase.auth().onAuthStateChanged(user => {
+    store.dispatch("fetchUser", user);
+})
+
 const db = firebase.firestore();
 // const storage = getStorage(fb);
 const storage = fb.storage()

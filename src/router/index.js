@@ -21,6 +21,7 @@ const router = createRouter({
         { path: "/", component: () => import("../views/Home.vue")},
         { path: "/signup", component: () => import("../views/Signup.vue")},
         { path: "/login",name: 'login', component: () => import("../views/Login.vue")},
+        { path: "/contact", component: () => import("../views/ContactUs.vue")},
         { path: "/feed", component: () => import("../views/Feed.vue"),
         meta: {
             requiresAuth: true,
@@ -38,7 +39,14 @@ const router = createRouter({
         { path: '/addbook', name: 'AddBook', component: AddBook},
         { path: '/:book_id', name: 'view-book', component: ViewBook},
         { path: '/edit/:book_id', name: 'edit-book', component: EditBook},
-        { path: '/all-users', name: 'all-users', component: Admin},
+        { path: '/all-users', 
+        name: 'all-users', 
+        component: Admin,
+        meta: {
+            requiredAuthorization: true, // You can enable/disable authorization 
+            roles: ['admin'] // This can be accessed by only admin
+        }
+        },
         { path: '/create-user', name: 'create-user', component: CreateUser},
         { path: '/dash', component: () => import("../components/admin/dashboard.vue")}
     ],

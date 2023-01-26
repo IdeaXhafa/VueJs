@@ -3,7 +3,7 @@
   <div id="show-book">
       <div class="row row-cols-1 row-cols-md-3" v-for="books in books" v-bind:key="books.id">
         <div class="col mb-4">
-          <div class="card h-100">
+          <div class="card" style="width:330%; height: 200%; border-radius: 25px; flex-grow: 1;">
             <img class="card-img-top" src="" alt="Card image cap">
             <input type="file" @change="showImage"/>
             <img :src="showImage"/>
@@ -17,21 +17,25 @@
                 <h4 class="card-title">{{ books.title }}</h4>
                 <p class="card-text">{{ books.author }}</p>
 
-                <router-link v-bind:to="{
-                name: 'view-book', 
-                params: {book_id: books.book_id}
-                }">
-                    <button class="btn btn-secondary">View</button>
-                </router-link>
+                <div class="card-block" style="position: absolute; bottom: 5px; margin-left: 40px;">
+
+                  <router-link v-bind:to="{
+                  name: 'view-book', 
+                  params: {book_id: books.book_id}
+                  }">
+                      <button class="btn btn-secondary">View</button>
+                  </router-link>
 
 
-                <button class="btn btn-primary" v-bind:to="{ 
-                name: 'EditBook', 
-                params: { book_id : parseInt(this.$route.params.book_id) }}" >Edit</button>
-                <button @click="deleteBook" class="btn btn-danger">Delete</button>
-              </div>
+                  <button class="btn btn-primary" v-bind:to="{ 
+                  name: 'EditBook', 
+                  params: { book_id : parseInt(this.$route.params.book_id) }}" >Edit</button>
+                  <button @click="deleteBook" class="btn btn-danger">Delete</button>
+
+                </div>
             </div>
           </div>
+        </div>
     </div>
         <router-link to="/addbook">
         <button class="btn btn-primary">Add a Book</button>
@@ -114,4 +118,11 @@ export default {
 </script>
 
 <style >
+#show-book{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  padding: 90px;
+  flex-wrap: wrap;
+}
 </style>

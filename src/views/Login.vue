@@ -41,7 +41,8 @@ const signup = () => {
     router.push('/feed') //redirect to feed once registered
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          console.log(getAuth(), email.value)
+          console.log(getAuth(), user)
+          console.log("HI"+ user)
         // User is signed in.
         // var email = user.email;
         // var uid = user.uid;

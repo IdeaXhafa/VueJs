@@ -1,10 +1,10 @@
 <template>
     <header>
         <div class="fixed-top">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light" id="navi">
                 <a class="navbar-brand" href="#">e-books</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span :class="{ 'rotate-180': collapsed }" @click="toggleSidebar" class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
@@ -25,7 +25,13 @@
                         <SidebarLink to="/read-pagesa">Pagesa</SidebarLink>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
+                        <SidebarLink to="/dash">Dashboard</SidebarLink>
+                    </li>
+                    <li class="nav-item">
+                    <SidebarLink to="/logout" id="logout">Log Out</SidebarLink>
+                    </li>
+                    <li class="nav-item">
+                    <SidebarLink to="/contact">Contact Us</SidebarLink>
                     </li>
                     </ul>
                     <router-link to="/signup">
@@ -40,12 +46,30 @@
 <script>
 //import menuIcon from '../../assets/Icons/bars-regular.png'
 import SidebarLink from '../sidebar/SidebarLink.vue';
+import { collapsed, toggleSidebar } from '../sidebar/state';
+
+const logout = document.querySelector('#logout');
+    if(logout){
+        logout.addEventListener('click', (e) => {
+        e.preventDefault();
+        auth.signOut().then(()=> {
+            console.log("user signed out!")
+        })
+        })
+    }
+
 
 export default ({
     name: 'navigation',
     components: {
         SidebarLink
         // menuIcon
+    },
+    setup() {
+        return { 
+          collapsed, 
+          toggleSidebar
+        }
     },
     data() {
         return{
@@ -59,6 +83,8 @@ export default ({
 
 
 
-<style lang="scss" scoped>
-
+<style scoped>
+#navi{
+    background-color: #9ab8f7;
+}
 </style>

@@ -36,7 +36,9 @@ export default {
       Home,
       Footer,
       setup(){
-        return { sidebarWidth }
+        return { 
+          sidebarWidth 
+        }
       },
       data() {
         return {
