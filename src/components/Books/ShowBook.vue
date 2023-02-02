@@ -3,10 +3,10 @@
   <div id="show-book">
       <div class="row row-cols-1 row-cols-md-3" v-for="books in books" v-bind:key="books.id">
         <div class="col mb-4">
-          <div class="card" style="width:330%; height: 200%; border-radius: 25px; flex-grow: 1;">
-            <img class="card-img-top" src="" alt="Card image cap">
+          <div class="card" style="width:330%; height: 200%; border-radius: 25px; ">
+            <!-- <img class="card-img-top" src="" alt="Card image cap"> -->
             <input type="file" @change="showImage"/>
-            <img :src="showImage"/>
+            <!-- <img :src="getImage(books.image)"/> -->
             <div class="p-1" v-for="image in images" :key="image">
               <div class="img-wrap">
                 <img :src="image" alt="" style="width:130px"/>
@@ -31,7 +31,15 @@
                   name: 'EditBook', 
                   params: { book_id : parseInt(this.$route.params.book_id) }}" >Edit</button>
                   <button @click="deleteBook" class="btn btn-danger">Delete</button>
-
+                  
+                  <router-link to="/cart">
+                    <button
+                    :book_id="books.id"
+                    :name="books.title"
+                    :author="books.author"
+                    class="btn btn-primary">Add To Cart</button>
+                  </router-link>
+                  <!-- <button v-if="books.cart" @click="add(book)" :disabled="book.cart">Book added to cart</button>  -->
                 </div>
             </div>
           </div>
@@ -45,6 +53,7 @@
 
 <script>
 import { db, fb } from '../../firebase'
+import Cart from '../Cart/Cart.vue'
 
 export default {
   name: 'showbook',
@@ -52,7 +61,8 @@ export default {
       return {
           books: [],
           images: [],
-          imageUrl: ""
+          imageUrl: "",
+          counter: 0
       }
   },
   mounted() {
@@ -113,6 +123,14 @@ export default {
           );
       }
     },  
+    getImage(images){
+      return images[0];
+    },
+    add(book){
+            this.books[book.id-1].cart = true
+            this.cart.push(book)
+            this.counter++
+    },
   },
 }
 </script>
@@ -123,6 +141,6 @@ export default {
   width: 100%;
   display: flex;
   padding: 90px;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 </style>

@@ -94,6 +94,7 @@ const getUser =  () => {
         <SidebarLink to="/dash" icon="fas fa-users">Dashboard</SidebarLink>
         <SidebarLink to="/all-users" icon="fas fa-users">Admin Dashboard</SidebarLink>
         <SidebarLink to="/contact">Contact Us</SidebarLink>
+        <SidebarLink to="/add-to-cart">AudioBooks</SidebarLink>
 
         <!-- <SidebarLink>
         <button @click="handleLogOut" v-if="!isLoggedIn">Log Out</button>

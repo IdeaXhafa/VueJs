@@ -1,32 +1,34 @@
-import firebase from "firebase/compat";
+import firebase from "firebase/compat/app";
+import 'firebase/compat/database'
 
 var messageRef = firebase.database().ref("messages");
 
 var con = document.getElementById('contact-form');
 
 if(con){
-test.addEventListener('submit', SubmitForm);
+con.addEventListener('submit', SubmitForm);
 }
 
 function SubmitForm(e){
     e.preventDefault();
     
-    var name = getInputValues("name");
-    var email = getInputValues("email");
-    var subject = getInputValues("subject");
-    var message = getInputValues("message");
+    var name = getInputVal('name');
+    var email = getInputVal('email');
+    var subject = getInputVal('subject');
+    var message = getInputVal('message');
 
-    saveMessage(name,email,subject,message);
+  // Save message
+  saveMessage(name, email, subject, message);
 }
 
-function getInputValues(id){
+function getInputVal(id){
     return document.getElementById(id).value;
 }
 
-function saveMessage(name,email,subject,message){
+function saveMessage(name, email, subject, message){
     var newMessageRef = messageRef.push();
     newMessageRef.set({
-        name:name,
+        name: name,
         email:email,
         subject:subject,
         message:message

@@ -22,6 +22,23 @@ const router = createRouter({
         { path: "/signup", component: () => import("../views/Signup.vue")},
         { path: "/login",name: 'login', component: () => import("../views/Login.vue")},
         { path: "/contact", component: () => import("../views/ContactUs.vue")},
+        { path: "/add-to-cart", component: () => import("../components/audiobooks/AddToCart.vue")},
+        { path: "/cart", component: () => import("../components/Cart/Cart.vue")},
+        {
+            path: '/create-bestseller',
+            name: 'home',
+            component: () => import('../components/bestsellers/CreateComponent'),
+        },
+        {
+            path: '/view',
+            name: 'view',
+            component: () => import('../components/bestsellers/ListComponent'),
+        },
+        {
+            path: '/edit/:id',
+            name: 'edit',
+            component: () => import('../components/bestsellers/EditComponent'),
+          },
         { path: "/feed", component: () => import("../views/Feed.vue"),
         meta: {
             requiresAuth: true,

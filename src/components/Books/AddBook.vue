@@ -118,5 +118,9 @@ import { db, fb } from '../../firebase'
 .img-wrap span.delete-img:hover{
   cursor: pointer;
 }
+.form-control{
+  text-align: center;
+  padding: 70px 0;
+}
 </style>
   

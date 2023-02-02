@@ -23,7 +23,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 // const firebase = initializeApp(firebaseConfig);
 // export const db = getFirestore(firebase);
 
-
 const app = createApp(App)
 
 app.use(router)

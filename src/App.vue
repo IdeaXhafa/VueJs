@@ -6,20 +6,11 @@
   <Navigation/>
   <router-view/>
   </div>
-  <!-- <Footer/> -->
-  <!-- <nav>
-    <router-link to="/"> Home </router-link> |
-    <router-link to="/feed"> Feed </router-link> |
-    <router-link to="/signup"> Sign Up </router-link> |
-    <router-link to="/login"> Log In </router-link> |
-    <button @click="handleLogOut" v-if="isLoggedIn">Log Out</button>
-  </nav> -->
+  
 </template>
 
 <script>
-// import { onMounted, ref } from 'vue';
-// import { getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
-// import { useRouter } from 'vue-router';
+
 import Sidebar from './components/sidebar/Sidebar.vue';
 import { sidebarWidth } from './components/sidebar/state';
 import { Home } from './views/Home.vue'
@@ -67,7 +58,7 @@ export default {
         $route() {
           this.checkRoute();
         },
-      }
+      },
   }
 }
 
