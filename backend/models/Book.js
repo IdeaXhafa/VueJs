@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-let bestsellerSchema = new Schema(
+let bookSchema = new Schema(
   {
     title: {
       type: String,
@@ -14,11 +14,14 @@ let bestsellerSchema = new Schema(
     },
     picture: {
       type: String,
+    },
+    isAvailable: {
+      type: Boolean,
     }
   },
   {
-    collection: 'bestsellers',
+    collection: 'book',
   },
 )
 
-module.exports = mongoose.model('BestSeller', bestsellerSchema)
+module.exports = mongoose.model('Book', bookSchema)

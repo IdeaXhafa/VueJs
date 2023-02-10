@@ -14,6 +14,7 @@ mongoose
   })
 
 const studentAPI = require('../backend/routes/bestseller.route')
+const bookAPI = require('../backend/routes/book.route')
 const app = express()
 app.use(bodyParser.json())
 app.use(
@@ -24,7 +25,7 @@ app.use(
 app.use(cors())
 
 // API
-app.use('/api', studentAPI)
+app.use('/api', studentAPI, bookAPI)
 
 // Create port
 const port = process.env.PORT || 4000

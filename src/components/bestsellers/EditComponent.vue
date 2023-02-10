@@ -34,7 +34,7 @@
           </div>
   
           <div class="form-group">
-            <button class="btn btn-danger btn-block">Update</button>
+            <button class="btn btn-success btn-block" style="margin: 0 auto;width: 80px;">Update</button>
           </div>
         </form>
       </div>
@@ -74,3 +74,10 @@
     },
   };
   </script>
+
+<style>
+.form-group{
+  width: 440px;
+  margin: 0 auto;
+}
+</style>

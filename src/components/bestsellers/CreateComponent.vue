@@ -32,9 +32,18 @@
               required
             />
           </div>
+          <div class="form-group">
+            <label>Photo</label>
+            <input 
+                type="file"
+                class="form-control"
+                v-on:change="bestseller.picture"
+                required
+            />
+          </div>
   
           <div class="form-group">
-            <button class="btn btn-danger btn-block">Create</button>
+            <button class="btn btn-primary btn-block" style="margin: 0 auto;width: 80px;">Create</button>
           </div>
         </form>
       </div>
@@ -51,12 +60,13 @@
           title: "",
           author: "",
           price: "",
+          picture: ""
         },
       };
     },
     methods: {
       handleSubmitForm() {
-        let apiURL = "http://localhost:4000/api/create-bestseller";
+        let apiURL = "http://localhost:4000/api/store";
   
         axios
           .post(apiURL, this.bestseller)
@@ -66,6 +76,7 @@
                 title: "",
                 author: "",
                 price: "",
+                picture: ""
             };
           })
           .catch((error) => {
@@ -76,3 +87,9 @@
   };
   </script>
   
+<style>
+.form-group{
+  width: 440px;
+  margin: 0 auto;
+}
+</style>

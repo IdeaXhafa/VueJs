@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-let bestsellerSchema = new Schema(
+let audiobookSchema = new Schema(
   {
     title: {
       type: String,
@@ -14,11 +14,14 @@ let bestsellerSchema = new Schema(
     },
     picture: {
       type: String,
+    },
+    listeners: {
+      type: Number,
     }
   },
   {
-    collection: 'bestsellers',
+    collection: 'audiobook',
   },
 )
 
-module.exports = mongoose.model('BestSeller', bestsellerSchema)
+module.exports = mongoose.model('Audioook', audiobookSchema)

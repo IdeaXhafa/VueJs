@@ -1,24 +1,24 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-let bestsellerSchema = new Schema(
+let magazineSchema = new Schema(
   {
     title: {
       type: String,
     },
-    author: {
+    company: {
       type: String,
-    },
-    price: {
-      type: Number,
     },
     picture: {
       type: String,
+    },
+    description: {
+      type: String
     }
   },
   {
-    collection: 'bestsellers',
+    collection: 'magazine',
   },
 )
 
-module.exports = mongoose.model('BestSeller', bestsellerSchema)
+module.exports = mongoose.model('Magazine', magazineSchema)
