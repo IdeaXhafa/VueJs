@@ -1,28 +1,28 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-let huazimSchema = new Schema(
+let rezervimSchema = new Schema(
   {
-    DataPritjes: {
+    CreatedAt: {
       type: DateTime,
     },
-    DataKthimit: {
+    DeletedAt: {
       type: DateTime,
     },
     K_id: {
       type: Number,
     },
     B_id: {
-      type: Number,
+        type: Number,
     },
     isAvctive: {
       type: Boolean,
     }
   },
   {
-    collection: 'huazimi',
+    collection: 'rezervimi',
   },
 )
 
-module.exports = mongoose.model('Huazimi', huazimSchema)
+module.exports = mongoose.model('Rezervimi', rezervimSchema)
 

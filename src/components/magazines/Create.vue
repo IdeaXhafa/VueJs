@@ -1,47 +1,37 @@
 <template>
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <h3 class="text-center">Create BestSeller</h3>
+        <h3 class="text-center">Create Magazine</h3>
         <form @submit.prevent="handleSubmitForm">
           <div class="form-group">
             <label>Title</label>
             <input
               type="text"
               class="form-control"
-              v-model="bestseller.title"
+              v-model="magazine.title"
               required
             />
           </div>
   
           <div class="form-group">
-            <label>Author</label>
+            <label>Company</label>
             <input
               type="text"
               class="form-control"
-              v-model="bestseller.author"
+              v-model="magazine.company"
               required
             />
           </div>
   
           <div class="form-group">
-            <label>Price</label>
+            <label>Description</label>
             <input
               type="text"
               class="form-control"
-              v-model="bestseller.price"
+              v-model="magazine.description"
               required
             />
           </div>
-          <div class="form-group">
-            <label>Photo</label>
-            <input 
-                type="file"
-                class="form-control"
-                v-on:change="bestseller.img"
-                required
-            />
-          </div>
-  
           <div class="form-group">
             <button class="btn btn-primary btn-block" style="margin: 0 auto;width: 80px;">Create</button>
           </div>
@@ -56,11 +46,10 @@
   export default {
     data() {
       return {
-        bestseller: {
+        magazine: {
           title: "",
-          author: "",
-          price: "",
-          img: ""
+          company: "",
+          description: ""
         },
       };
     },
@@ -69,14 +58,13 @@
         let apiURL = "http://localhost:4000/api/store";
   
         axios
-          .post(apiURL, this.bestseller)
+          .post(apiURL, this.magazine)
           .then(() => {
-            this.$router.push("/view");
-            this.bestseller = {
+            this.$router.push("/magazines");
+            this.magazine = {
                 title: "",
-                author: "",
-                price: "",
-                img: ""
+                company: "",
+                description: ""
             };
           })
           .catch((error) => {

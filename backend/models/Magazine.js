@@ -9,9 +9,6 @@ let magazineSchema = new Schema(
     company: {
       type: String,
     },
-    picture: {
-      type: String,
-    },
     description: {
       type: String
     }

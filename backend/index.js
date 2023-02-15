@@ -2,6 +2,20 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: (req,file,cb)=> {
+    cb(null,'images')
+  },
+  filename: (req,file,cb)=> {
+    console.log(file)
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({storage: storage})
 
 // Connect mongoDB
 mongoose
@@ -15,6 +29,8 @@ mongoose
 
 const studentAPI = require('../backend/routes/bestseller.route')
 const bookAPI = require('../backend/routes/book.route')
+const magazineAPI = require('../backend/routes/magazine.route')
+
 const app = express()
 app.use(bodyParser.json())
 app.use(
@@ -25,7 +41,7 @@ app.use(
 app.use(cors())
 
 // API
-app.use('/api', studentAPI, bookAPI)
+app.use('/api', studentAPI, bookAPI, magazineAPI)
 
 // Create port
 const port = process.env.PORT || 4000
@@ -44,3 +60,13 @@ app.use(function (err, req, res, next) {
   if (!err.statusCode) err.statusCode = 500
   res.status(err.statusCode).send(err.message)
 })
+
+app.get("/upload", (req,res)=> {
+  res.render("upload");
+})
+
+app.post("/upload", upload.single("image") ,(req,res)=> {
+  res.send("image uploaded")
+})
+
+app.use(express.static(__dirname + '/upload'));

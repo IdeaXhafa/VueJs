@@ -34,6 +34,7 @@ const store = (req,res,next) => {
         title: equal.body.title,
         author: equal.body.author,
         price: equal.body.price,
+        img: equal.body.img
     })
     BestSeller.save()
     .then(response => {
@@ -55,6 +56,7 @@ const update = (req,res,next) => {
         title: equal.body.title,
         author: equal.body.author,
         price: equal.body.price,
+        img: equal.body.img
     }
     BestSeller.findByIdAndUpdate(bestsellerID, {$set: updatedData})
     .then(response => {

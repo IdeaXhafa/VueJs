@@ -24,6 +24,16 @@ const router = createRouter({
         { path: "/contact", component: () => import("../views/ContactUs.vue")},
         { path: "/add-to-cart", component: () => import("../components/audiobooks/AddToCart.vue")},
         { path: "/cart", component: () => import("../components/Cart/Cart.vue")},
+        { path: "/upload", component: () => import("../components/book/upload.vue")},
+        { path: "/chat", component: () => import("../views/Chat.vue")},
+        {
+            path: '/create-magazine',
+            component: () => import('../components/magazines/Create.vue'),
+        },
+        {
+            path: '/magazines',
+            component: () => import('../components/magazines/List.vue'),
+        },
         {
             path: '/create-bestseller',
             name: 'home',

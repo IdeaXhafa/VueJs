@@ -12,8 +12,10 @@ let bestsellerSchema = new Schema(
     price: {
       type: Number,
     },
-    picture: {
-      type: String,
+    img:
+    {
+        data: Buffer,
+        contentType: String
     }
   },
   {
