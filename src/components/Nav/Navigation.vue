@@ -31,8 +31,11 @@
                     <SidebarLink to="/logout" id="logout">Log Out</SidebarLink>
                     </li>
                     <li class="nav-item">
-                    <SidebarLink to="/contact">Contact Us</SidebarLink>
+                    <SidebarLink to="/get-messages" id="logout">Contact</SidebarLink>
                     </li>
+                    <!-- <li class="nav-item">
+                    <SidebarLink to="/contact">Contact Us</SidebarLink>
+                    </li> -->
                     </ul>
                     <router-link to="/signup">
                     <button class="btn btn-outline-success">Get Started</button>

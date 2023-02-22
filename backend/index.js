@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
+const createError = require('http-errors');
 
 const storage = multer.diskStorage({
   destination: (req,file,cb)=> {
@@ -30,6 +31,7 @@ mongoose
 const studentAPI = require('../backend/routes/bestseller.route')
 const bookAPI = require('../backend/routes/book.route')
 const magazineAPI = require('../backend/routes/magazine.route')
+const contactAPI = require('../backend/routes/contact.route')
 
 const app = express()
 app.use(bodyParser.json())
@@ -42,6 +44,7 @@ app.use(cors())
 
 // API
 app.use('/api', studentAPI, bookAPI, magazineAPI)
+app.use('/contactapi',contactAPI)
 
 // Create port
 const port = process.env.PORT || 4000

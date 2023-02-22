@@ -1,37 +1,36 @@
 <template>
-
 <section class="mb-4" id="contact">
 
 <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
 
-<p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
+    <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
     a matter of hours to help you.</p>
     <div class="row">
         <div class="col-md-9 mb-md-0 mb-5">
-            <form id="contact-form" name="contact-form" 
-            >
+            <form @submit.prevent="handleSubmitForm" id="contact-form" name="contact-form" >
                 <div class="row">
                     <div class="col-md-6">
                         <div class="md-form mb-0">
-                            <input type="text" id="name" name="name" class="form-control">
+                            <input type="text" id="name" name="name" class="form-control" 
+                            v-model="contact.name" required>
                             <label for="name" class="">Your name</label>
                         </div>
                     </div>
                 
                     <div class="col-md-6">
                         <div class="md-form mb-0">
-                            <input type="text" id="email" name="email" class="form-control">
+                            <input type="text" id="email" name="email" class="form-control"
+                            v-model="contact.email" required>
                             <label for="email" class="">Your email</label>
                         </div>
                     </div>
-              
-
                 </div>
                
                 <div class="row">
                     <div class="col-md-12">
                         <div class="md-form mb-0">
-                            <input type="text" id="subject" name="subject" class="form-control">
+                            <input type="text" id="subject" name="subject" class="form-control"
+                            v-model="contact.subject" required>
                             <label for="subject" class="">Subject</label>
                         </div>
                     </div>
@@ -39,23 +38,20 @@
             
                 <div class="row">
 
-               
                     <div class="col-md-12">
 
                         <div class="md-form">
-                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"
+                            v-model="contact.message" required></textarea>
                             <label for="message">Your message</label>
                         </div>
 
                     </div>
                 </div>
-          
-
+                <div class="text-center text-md-left">
+                    <a class="btn btn-primary">Send</a>
+                </div>
             </form>
-
-            <div class="text-center text-md-left">
-                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
-            </div>
             <div class="status"></div>
         </div>
        
@@ -74,36 +70,49 @@
                 </li>
             </ul>
         </div>
-       
-
     </div>
 
 </section> 
-
 </template>
-
-<script>
+  
+  <script>
+  import axios from "axios";
+  
   export default {
-    data: () => ({
-      
-    }),
-    created() {
-    var scripts = [
-        // "http://localhost:8080/main.js",
-        "./main.js"
-    ];
-    // scripts.forEach(script => {
-    //   let tag = document.createElement("script");
-    //   tag.setAttribute("src", script);
-    //   document.head.appendChild(tag);
-    // });
-  }
-    
-  }
-</script>
-<!-- <script src="./main.js"/> -->
-
-<style scoped>
+    data() {
+      return {
+        contact: {
+          name: "",
+          email: "",
+          subject: "",
+          message: ""
+        },
+      };
+    },
+    methods: {
+      handleSubmitForm() {
+        let apiURL = "http://localhost:4000/contactapi/store";
+  
+        axios
+          .post(apiURL, this.contact)
+          .then(() => {
+            this.$router.push("/get-messages");
+            this.contact = {
+                name: "",
+                email: "",
+                subject: "",
+                message: ""
+            };
+          })
+          .catch((error) => {
+            console.log(error.response.data);
+          });
+      },
+    },
+  };
+  </script>
+  
+<style>
 #contact{
     box-shadow: 0px -1px 12px pink;
     border-radius: 20px;

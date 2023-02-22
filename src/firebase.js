@@ -18,9 +18,9 @@ const firebaseConfig = {
 const fb = firebase.initializeApp(firebaseConfig);
 //const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
-firebase.auth().onAuthStateChanged(user => {
-    store.dispatch("fetchUser", user);
-})
+// firebase.auth().onAuthStateChanged(user => {
+//     store.dispatch("fetchUser", user);
+// })
 
 const db = firebase.firestore();
 // const storage = getStorage(fb);
