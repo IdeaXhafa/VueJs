@@ -30,7 +30,7 @@
         };
       },
       created() {
-        let apiURL = "http://localhost:4000/contactapi";
+        let apiURL = "http://localhost:4000/api/get-messages";
         axios
           .get(apiURL)
           .then((res) => {

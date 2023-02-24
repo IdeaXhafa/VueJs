@@ -1,7 +1,0 @@
-<template>
-    <h1>Upload image</h1>
-    <form method="POST" action="/upload" enctype="multipart/form-data">
-        <input type="file" name="image"/>
-        <input type="submit"/>
-    </form>
-</template>

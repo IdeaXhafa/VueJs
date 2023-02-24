@@ -1,142 +1,122 @@
 <template>
   <h3>Books</h3>
   <div id="show-book">
-      <div class="row row-cols-1 row-cols-md-3" v-for="books in books" v-bind:key="books.id">
-        <div class="col mb-4">
-          <div class="card" style="width:330%; height: 200%; border-radius: 25px; ">
-            <!-- <img class="card-img-top" src="" alt="Card image cap"> -->
-            <input type="file" @change="showImage"/>
-            <!-- <img :src="getImage(books.image)"/> -->
-            <div class="p-1" v-for="image in images" :key="image">
-              <div class="img-wrap">
-                <img :src="image" alt="" style="width:130px"/>
-              </div>
-            </div>
+    <div
+      class="row row-cols-1 row-cols-md-3"
+      v-for="books in books"
+      v-bind:key="books._id"
+    >
+      <div class="col mb-4">
+        <div
+          class="card"
+          style="width: 350%;max-width: 350% ;height: 110%;max-height: 110%;padding: 0; border-radius: 25px" 
+        >
+          <div class="card-block">
+            <p>lorem ipsum lorem ipsum lorem </p>
+            <h4 class="card-title">{{ books.title }}</h4>
+            <img v-bind:src= books.photoUrl style="height:200px; width: 100px;">
+            <p class="card-text">{{ books.author }}</p>
 
-            <div class="card-block">
-                <h4 class="card-title">{{ books.title }}</h4>
-                <p class="card-text">{{ books.author }}</p>
-
-                <div class="card-block" style="position: absolute; bottom: 5px; margin-left: 40px;">
-
-                  <router-link v-bind:to="{
+            <div
+              class="card-block"
+              style="position: absolute; bottom: 5px; margin-left: 40px"
+            >
+              <!-- <router-link v-bind:to="{
                   name: 'view-book', 
                   params: {book_id: books.book_id}
                   }">
                       <button class="btn btn-secondary">View</button>
-                  </router-link>
+                  </router-link> -->
 
+              <button
+                class="btn btn-secondary"
+                v-bind:to="{
+                  name: 'EditBook',
+                  params: { book_id: parseInt(this.$route.params.book_id) },
+                }"
+              >
+                Edit
+              </button>
 
-                  <button class="btn btn-primary" v-bind:to="{ 
-                  name: 'EditBook', 
-                  params: { book_id : parseInt(this.$route.params.book_id) }}" >Edit</button>
-                  <button @click="deleteBook" class="btn btn-danger">Delete</button>
-                  
-                  <router-link to="/cart">
-                    <button
-                    :book_id="books.id"
-                    :name="books.title"
-                    :author="books.author"
-                    class="btn btn-primary">Add To Cart</button>
-                  </router-link>
-                  <!-- <button v-if="books.cart" @click="add(book)" :disabled="book.cart">Book added to cart</button>  -->
-                </div>
+              <router-link to="/cart">
+                <button
+                  :book_id="books.id"
+                  :name="books.title"
+                  :author="books.author"
+                  class="btn btn-success"
+                >
+                  Buy
+                </button>
+              </router-link>
+              <!-- <button v-if="books.cart" @click="add(book)" :disabled="book.cart">Book added to cart</button>  -->
             </div>
           </div>
         </div>
+      </div>
     </div>
-        <router-link to="/addbook">
-        <button class="btn btn-primary">Add a Book</button>
-        </router-link>
+    <router-link to="/addbook">
+      <button class="btn btn-primary">Add a Book</button>
+    </router-link>
   </div>
 </template>
 
 <script>
-import { db, fb } from '../../firebase'
-import Cart from '../Cart/Cart.vue'
+import { ref } from "@vue/reactivity";
+import axios from "axios";
 
 export default {
-  name: 'showbook',
+  name: "showbook",
   data() {
-      return {
-          books: [],
-          images: [],
-          imageUrl: "",
-          counter: 0
-      }
+    return {
+      books: [],
+    };
   },
-  mounted() {
-    // const id = this.$route.params.id;
-    // db.collection("books").get().then(doc => {
-    //     if (doc.exists) {
-    //         console.log(doc.data()) 
-    //         this.imageurl = doc.data().imageUrl
-    //     } else {
-    //         console.log('no data')
-    //     }
-    // })
-    // .catch(error => {
-    // })
-  },
-  created () {
-      db.collection('books').get().then
-      (querySnapshot => {
-          querySnapshot.forEach(doc => {
-              const data = {
-                  'id': doc.id,
-                  'book_id': doc.data().book_id,
-                  'title': doc.data().title,
-                  'author': doc.data().author,
-                  'images': doc.data().images
-              }
-              this.books.push(data)
-          })
-      }) 
+  created() {
+    let apiURL = "http://localhost:4000/api/get-book";
+    axios
+      .get(apiURL)
+      .then((res) => {
+        this.books = res.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   methods: {
-    deleteBook() {
-      if(confirm("Are you sure?")) {                
-        db.collection('books').where('book_id', '==', parseInt(this.$route.params.book_id)).get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-          doc.ref.delete()
+    deleteStudent(id) {
+      let apiURL = `http://localhost:4000/api/delete-book/${id}`;
+      let indexOfArrayItem = this.books.findIndex((i) => i._id === id);
+
+      if (window.confirm("Do you really want to delete?")) {
+        axios
+          .delete(apiURL)
+          .then(() => {
+            this.books.splice(indexOfArrayItem, 1);
           })
-        })
+          .catch((error) => {
+            console.log(error);
+          });
       }
-    },
-    showImage(e) {
-      if(e.target.files[0]){
-          let file = e.target.files[0];
-          var storageRef = fb.storage().ref('bookPhotos/' + file.name);
-          let uploadTask = storageRef.put(file);
-          console.log(file.name)
-          uploadTask.on('state_changed', (snapshot) => {
-          }, 
-            (error) => {
-            }, 
-            () => {
-            uploadTask.snapshot.ref.getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              this.images.push(downloadURL);
-                console.log('File available at', downloadURL);
-              });
-            }
-          );
-      }
-    },  
-    getImage(images){
-      return images[0];
-    },
-    add(book){
-            this.books[book.id-1].cart = true
-            this.cart.push(book)
-            this.counter++
     },
   },
-}
+  setup() {
+    const filePath = ref(null);
+
+    const deleteImage = async (filePath) => {
+      const storage = getStorage();
+      const storageRef = ref(storage, filePath);
+      try {
+        await deleteObject(storageRef);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+  },
+};
 </script>
 
 <style >
-#show-book{
+#show-book {
   height: 100%;
   width: 100%;
   display: flex;

@@ -15,7 +15,7 @@ Route.route('/create-book').post((req, res, next) => {
   })
 })
 
-Route.route('/').get((req, res, next) => {
+Route.route('/get-book').get((req, res, next) => {
     BookModel.find((error, data) => {
     if (error) {
       return next(error)

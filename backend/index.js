@@ -32,6 +32,7 @@ const studentAPI = require('../backend/routes/bestseller.route')
 const bookAPI = require('../backend/routes/book.route')
 const magazineAPI = require('../backend/routes/magazine.route')
 const contactAPI = require('../backend/routes/contact.route')
+const photoAPI = require('../backend/routes/photo.route')
 
 const app = express()
 app.use(bodyParser.json())
@@ -43,8 +44,8 @@ app.use(
 app.use(cors())
 
 // API
-app.use('/api', studentAPI, bookAPI, magazineAPI)
-app.use('/contactapi',contactAPI)
+app.use('/api', studentAPI, bookAPI, magazineAPI,contactAPI,photoAPI)
+// app.use('/contactapi',contactAPI)
 
 // Create port
 const port = process.env.PORT || 4000

@@ -9,14 +9,11 @@ let bookSchema = new Schema(
     author: {
       type: String,
     },
-    price: {
-      type: Number,
+    photoUrl: {
+      type:String,
     },
-    picture: {
-      type: String,
-    },
-    isAvailable: {
-      type: Boolean,
+    filePath: {
+      type:String,
     }
   },
   {
