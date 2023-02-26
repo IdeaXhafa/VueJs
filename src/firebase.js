@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
@@ -24,7 +25,10 @@ const fb = firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 // const storage = getStorage(fb);
+
+const auth = getAuth();
+
 const storage = fb.storage()
 
-export { fb, db };
+export { fb, db, auth };
 // export const db = fb.firestore();

@@ -1,7 +1,49 @@
 <template>
   <div id="addbook">
     <h3>New Book</h3>
-    <div class="row">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form class="form" @submit.prevent="handleSubmit">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Book</h4>
+            <router-link
+              to="/showbook"
+              data-dismiss="modal"
+              aria-hidden="true"
+              type="button"
+              class="close"
+              >&times;</router-link
+            >
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Title:</label>
+              <input type="text" v-model="books.title" required />
+            </div>
+            <div class="form-group">
+              <label>Author:</label>
+              <input type="text" v-model="books.author" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-field col s12">
+              <input type="file" @change="handleChange" class="form-control" />
+              <label>Upload a Photo</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <router-link to="/showbook" class="btn btn-dark"
+              >Cancel</router-link
+            >
+            <button type="submit" class="btn btn-primary float-right">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+    <!-- <div class="row">
       <form @submit.prevent="handleSubmit" class="col s12">
         <div class="row">
           <div class="input-field col s12">
@@ -25,7 +67,7 @@
         <router-link to="/showbook" class="btn grey">Cancel</router-link>
       </form>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>

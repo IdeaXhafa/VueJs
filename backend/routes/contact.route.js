@@ -1,27 +1,38 @@
-const express = require('express')
-const Contact = require('../models/Contact')
-const Route = express.Router()
+import express from 'express'
+import ContactController from '../controllers/ContactController'
 
-let ContactModel = require('../models/Contact')
+const contactRouter = express.Router({ mergeParams:true });
 
-Route.route('/send-message').post((req, res, next) => {
-    ContactModel.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
-})
+contactRouter.get('/get-messages', ContactController.list)
+contactRouter.post('/send-message', ContactController.create)
 
-Route.route('/get-messages').get((req, res, next) => {
-  ContactModel.find((error, data) => {
-  if (error) {
-    return next(error)
-  } else {
-    res.json(data)
-  }
-})
-})
+export default contactRouter;
 
-module.exports = Route
+
+// const express = require('express')
+// const Contact = require('../models/Contact')
+// const Route = express.Router()
+
+// let ContactModel = require('../models/Contact')
+
+// Route.route('/send-message').post((req, res, next) => {
+//     ContactModel.create(req.body, (error, data) => {
+//     if (error) {
+//       return next(error)
+//     } else {
+//       res.json(data)
+//     }
+//   })
+// })
+
+// Route.route('/get-messages').get((req, res, next) => {
+//   ContactModel.find((error, data) => {
+//   if (error) {
+//     return next(error)
+//   } else {
+//     res.json(data)
+//   }
+// })
+// })
+
+// module.exports = Route

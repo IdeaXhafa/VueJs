@@ -1,24 +1,37 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import mongoose from "mongoose";
 
-let contactSchema = new Schema(
-  {
-    name: {
-      type: String,
-    },
-    email: {
-      type: String,
-    },
-    subject: {
-      type: String,
-    },
-    message: {
-      type: String,
-    }
-  },
-  {
-    collection: 'contact',
-  },
-)
+const Schema = mongoose.Schema({
+  name: String,
+  email: String,
+  subject: String,
+  message: String,
+})
 
-module.exports = mongoose.model('Contact', contactSchema)
+const model = mongoose.model('Contact', Schema)
+export default model;
+
+
+// const mongoose = require('mongoose')
+// const Schema = mongoose.Schema
+
+// let contactSchema = new Schema(
+//   {
+//     name: {
+//       type: String,
+//     },
+//     email: {
+//       type: String,
+//     },
+//     subject: {
+//       type: String,
+//     },
+//     message: {
+//       type: String,
+//     }
+//   },
+//   {
+//     collection: 'contact',
+//   },
+// )
+
+// module.exports = mongoose.model('Contact', contactSchema)

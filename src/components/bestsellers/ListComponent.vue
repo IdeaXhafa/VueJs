@@ -1,125 +1,159 @@
 <template>
-  <div class="row" style="margin: 0 -5px;">
-    <div class="column" style="width: 80%;display: flex;">
-      <div class="card" style="width: 18rem;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);text-align: center;background-color: #f1f1f1;margin-right: 1rem;" v-for="bestseller in Bestsellers" :key="bestseller._id">
-        <img class="card-img-top" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">{{ bestseller.title }}</h5>
-          <p class="card-text">{{ bestseller.author }}</p>
-          <p class="card-text">{{ bestseller.price }}</p>
-                  <router-link
-                    :to="{ name: 'edit', params: { id: bestseller._id } }"
-                    class="btn btn-success"
-                    >Edit
-                  </router-link>
-                  <button
-                    @click.prevent="deleteStudent(bestseller._id)"
-                    class="btn btn-danger"
-                  >
-                    Delete
-                  </button>
+  <h3>Bestsellers</h3>
+  <div
+    class="container"
+    v-for="Bestsellers in Bestsellers"
+    v-bind:key="Bestsellers._id"
+  >
+    <div class="row" >
+      <div class="col">
+        <div
+          class="card h-100" 
+          style="
+            width: 30%;
+            max-width: 350%;
+            height: 110%;
+            max-height: 110%;
+            padding: 0;
+            border-radius: 25px;
+          "
+        >
+          <img
+            v-bind:src="Bestsellers.photoUrl"
+            style="
+              height: 200px;
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+              width: 50%;
+            "
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ Bestsellers.title }}</h5>
+            <p class="card-text">Author: {{ Bestsellers.author }}</p>
+            <p class="card-text">Price: {{ Bestsellers.price }} $</p>
+            <p class="card-text">Available: {{ Bestsellers.isAvailable }}</p>
+          </div>
+          <router-link to="/editbestseller">
+            <button class="btn btn-secondary">Edit</button>
+          </router-link>
+          <router-link to="/delete-bestseller">
+            <button class="btn btn-danger">Delete</button>
+          </router-link>
+          <router-link to="/cart">
+            <button @click="handleSubmit(Bestsellers)" class="btn btn-success">Add to Cart</button>
+          </router-link>
+          <!-- <add-to-cart :Bestsellers="Bestsellers" @removeFromCart="removeFromCart($event)" @addToCart="addToCart($event)"/> -->
         </div>
       </div>
     </div>
-                  <router-link
-                    to="/create-bestseller"
-                    class="btn btn-primary"
-                    style="width:70px;height:40px;"
-                    >Add
-                  </router-link>
   </div>
-    <!-- <div class="row">
-      <div class="col-md-12">
-        <table class="table table-striped">
-          <thead class="thead-dark">
-            <tr>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Price</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="bestseller in Bestsellers" :key="bestseller._id">
-              <td>{{ bestseller.title }}</td>
-              <td>{{ bestseller.author }}</td>
-              <td>{{ bestseller.price }}</td>
-              <td>
-                <router-link
-                  :to="{ name: 'edit', params: { id: bestseller._id } }"
-                  class="btn btn-success"
-                  >Edit
-                </router-link>
-                <button
-                  @click.prevent="deleteStudent(bestseller._id)"
-                  class="btn btn-danger"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div> -->
-  </template>
+  <router-link to="/addbestseller">
+    <button class="btn btn-primary">Add a Bestseller</button>
+  </router-link>
+</template>
   
   <script>
-  import axios from "axios";
-  
-  export default {
-    data() {
-      return {
-        Bestsellers: [],
-      };
+import axios from "axios";
+import { ref } from "@vue/reactivity";
+import addtocart from "../Cart/addtocart.vue";
+import router from "@/router";
+import { getAuth } from "@firebase/auth";
+import getUser from "@/getUser";
+
+export default {
+  components: {addtocart},
+  name: "showbestseller",
+  data() {
+    return {
+      Bestsellers: [],
+      //bestseller: Bestsellers.find((b) => b.id === this.$route.params.id)
+    };
+  },
+  created() {
+    let apiURL = "http://localhost:4000/api/get-bestseller";
+    axios
+      .get(apiURL)
+      .then((res) => {
+        this.Bestsellers = res.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  methods: {
+    deleteStudent(id) {
+      let apiURL = `http://localhost:4000/api/delete-bestseller/${id}`;
+      let indexOfArrayItem = this.Bestsellers.findIndex((i) => i._id === id);
+
+      if (window.confirm("Do you really want to delete?")) {
+        axios
+          .delete(apiURL)
+          .then(() => {
+            this.Bestsellers.splice(indexOfArrayItem, 1);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
-    created() {
-      let apiURL = "http://localhost:4000/api";
+    addToCart: function(Bestsellers){
+        this.$emit('addToCart',Bestsellers);
+    },
+    removeFromCart:function(Bestsellers){
+        this.$emit('removeFromCart',Bestsellers);
+    },
+    handleSubmit: function(Bestsellers){
+      let apiURL = "http://localhost:4000/api/create-cart";
+      Bestsellers.userId = this.id;
+      
+      
       axios
-        .get(apiURL)
-        .then((res) => {
-          this.Bestsellers = res.data;
+        .post(apiURL, Bestsellers)
+        .then(() => {
+          router.push("/cart");
         })
         .catch((error) => {
           console.log(error);
         });
-    },
-    methods: {
-      deleteStudent(id) {
-        let apiURL = `http://localhost:4000/api/delete-bestseller/${id}`;
-        let indexOfArrayItem = this.Bestsellers.findIndex((i) => i._id === id);
-  
-        if (window.confirm("Do you really want to delete?")) {
-          axios
-            .delete(apiURL)
-            .then(() => {
-              this.Bestsellers.splice(indexOfArrayItem, 1);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-      },
-    },
-  };
-  </script>
+    }
+  },
+  setup() {
+    const filePath = ref(null);
+    const { user } = getUser();
+
+    const id = user.value.uid;
+
+    const deleteImage = async (filePath) => {
+      const storage = getStorage();
+      const storageRef = ref(storage, filePath);
+      try {
+        await deleteObject(storageRef);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    return { id }
+  },
+};
+</script>
   
   <style>
-  .btn-success {
-    margin-right: 10px;
-  }
-  .row:after {
+.btn-success {
+  margin-right: 10px;
+}
+.row:after {
   content: "";
   display: table;
   clear: both;
-  }
-  @media screen and (max-width: 600px) {
+}
+@media screen and (max-width: 600px) {
   .column {
     width: 100%;
     display: block;
     margin-bottom: 20px;
   }
-  } 
-  
-  </style>
+}
+
+</style>
   

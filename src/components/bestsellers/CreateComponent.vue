@@ -1,94 +1,148 @@
 <template>
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <h3 class="text-center">Create BestSeller</h3>
-        <form @submit.prevent="handleSubmitForm">
-          <div class="form-group">
-            <label>Title</label>
-            <input
-              type="text"
-              class="form-control"
-              v-model="bestseller.title"
-              required
-            />
+  <div id="addbestseller">
+    <h3>New Bestseller</h3>
+
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form class="form" @submit.prevent="handleSubmit">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Bestseller</h4>
+            <router-link
+              to="/showbestseller"
+              data-dismiss="modal"
+              aria-hidden="true"
+              type="button"
+              class="close"
+              >&times;</router-link
+            >
           </div>
-  
-          <div class="form-group">
-            <label>Author</label>
-            <input
-              type="text"
-              class="form-control"
-              v-model="bestseller.author"
-              required
-            />
-          </div>
-  
-          <div class="form-group">
-            <label>Price</label>
-            <input
-              type="text"
-              class="form-control"
-              v-model="bestseller.price"
-              required
-            />
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Title:</label>
+              <input type="text" v-model="bestsellers.title" required />
+            </div>
+            <div class="form-group">
+              <label>Author:</label>
+              <input type="text" v-model="bestsellers.author" required />
+            </div>
+            <div class="form-group">
+              <label>Price:</label>
+              <input type="text" v-model="bestsellers.price" required />
+            </div>
+            <div class="form-group">
+              <label>Available:</label>
+              <input type="text" v-model="bestsellers.isAvailable" required />
+            </div>
           </div>
           <div class="form-group">
-            <label>Photo</label>
-            <input 
-                type="file"
-                class="form-control"
-                v-on:change="bestseller.img"
-                required
-            />
+            <div class="input-field col s12">
+              <input type="file" @change="handleChange" class="form-control" />
+              <label>Upload a Photo</label>
+            </div>
           </div>
-  
-          <div class="form-group">
-            <button class="btn btn-primary btn-block" style="margin: 0 auto;width: 80px;">Create</button>
+          <div class="modal-footer">
+            <router-link to="/showbestseller" class="btn btn-dark"
+              >Cancel</router-link
+            >
+            <button type="submit" class="btn btn-primary float-right">
+              Submit
+            </button>
           </div>
         </form>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
-  import axios from "axios";
-  
-  export default {
-    data() {
-      return {
-        bestseller: {
-          title: "",
-          author: "",
-          price: "",
-          img: ""
-        },
-      };
-    },
-    methods: {
-      handleSubmitForm() {
-        let apiURL = "http://localhost:4000/api/store";
-  
-        axios
-          .post(apiURL, this.bestseller)
-          .then(() => {
-            this.$router.push("/view");
-            this.bestseller = {
-                title: "",
-                author: "",
-                price: "",
-                img: ""
-            };
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      },
-    },
-  };
-  </script>
+import { ref as ref2 } from "@vue/reactivity";
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
+import axios from "axios";
+import router from "@/router";
+
+export default {
+  name: "addbestseller",
+  setup() {
+    const file = ref2(null);
+    const fileError = ref2(null);
+    const filePath = ref2(null);
+    const refurl = ref2(null);
+    const bestsellers = ref2({
+      title: "",
+      author: "",
+      price: "",
+      isAvailable: "",
+      photoUrl: "",
+      filePath: "",
+    });
+    const types = ["image/png", "image/jpeg"];
+
+    const handleChange = (e) => {
+      let selected = e.target.files[0];
+
+      if (selected && types.includes(selected.type)) {
+        file.value = selected;
+        fileError.value = null;
+      } else {
+        file.value = null;
+        fileError.value = "Please select an image file (png or jpg)";
+      }
+    };
+    const handleSubmit = async () => {
+      await uploadImage(file.value);
+      let apiURL = "http://localhost:4000/api/create-bestseller";
+
+      bestsellers.value.photoUrl = refurl.value;
+      bestsellers.value.filePath = filePath.value;
+
+      console.log(bestsellers.value);
+
+      axios
+        .post(apiURL, bestsellers.value)
+        .then(() => {
+          router.push("/showbestseller");
+          bestsellers.value = {
+            title: "",
+            author: "",
+            price: "",
+            isAvailable: "",
+            photoUrl: "",
+            filePath: "",
+          };
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    const uploadImage = async (file) => {
+      filePath.value = `bestsellerPhotos/${file.name}`;
+      const storage = getStorage();
+      const storageRef = ref(storage, filePath.value);
+      try {
+        await uploadBytes(storageRef, file);
+        refurl.value = await getDownloadURL(ref(storage, filePath.value));
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    return {
+      handleChange,
+      handleSubmit,
+      fileError,
+      bestsellers,
+    };
+  },
+};
+</script>
   
 <style>
-.form-group{
+.form-group {
   width: 440px;
   margin: 0 auto;
 }

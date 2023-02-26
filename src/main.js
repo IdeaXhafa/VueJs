@@ -5,6 +5,9 @@ import '@fortawesome/fontawesome-free'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/firebase";
+
 //import store from './components/store'
 
 // import { initializeApp } from "firebase/app";
@@ -22,9 +25,18 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 // const firebase = initializeApp(firebaseConfig);
 // export const db = getFirestore(firebase);
+let app;
 
-const app = createApp(App)
+onAuthStateChanged(auth, () => {
+  if (!app) {
+    app = createApp(App).use(router);
 
-app.use(router)
-// app.use(store)
-app.mount('#app')
+    app.mount("#app");
+  }
+});
+
+// const app = createApp(App)
+
+// app.use(router)
+// // app.use(store)
+// app.mount('#app')
