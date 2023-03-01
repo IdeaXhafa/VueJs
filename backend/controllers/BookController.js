@@ -2,6 +2,7 @@ import BookModel from '../models/Book';
 import { StatusCodes,  ReasonPhrases  } from 'http-status-codes';
 // import createCategorySchema from '../validators/books/create';
 // import updateCategorySchema from '../validators/books/update';
+import PinkModel from '../models/Pink'
 
 const controller = {
     list: async(req, res) => {

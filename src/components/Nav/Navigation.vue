@@ -30,9 +30,9 @@
                     <li class="nav-item">
                         <SidebarLink to="/dash">Dashboard</SidebarLink>
                     </li>
-                    <li class="nav-item">
-                    <SidebarLink to="/logout" id="logout">Log Out</SidebarLink>
-                    </li>
+                    <li class="nav-item"> 
+                    <SidebarLink to="" class="nav-link" v-if="user" @click="handleLogout">Log Out</SidebarLink>
+                   </li>
                     <li class="nav-item">
                     <SidebarLink to="/send-message">Contact Us</SidebarLink>
                     </li>
@@ -51,6 +51,9 @@
 
 <script>
 //import menuIcon from '../../assets/Icons/bars-regular.png'
+import { auth } from '@/firebase';
+import getUser from '@/getUser';
+import { signOut } from '@firebase/auth';
 import SidebarLink from '../sidebar/SidebarLink.vue';
 import { collapsed, toggleSidebar } from '../sidebar/state';
 
@@ -71,10 +74,20 @@ export default ({
         SidebarLink
         // menuIcon
     },
+    created() {
+    },
     setup() {
+        function handleLogout(){
+            signOut(auth)
+            console.log(user.value)
+        }
+        const {user} = getUser()
+        console.log(user)
         return { 
           collapsed, 
-          toggleSidebar
+          toggleSidebar,
+          user,
+          handleLogout
         }
     },
     data() {

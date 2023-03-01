@@ -2,6 +2,7 @@ import BestsellerModel from '../models/BestSeller';
 import { StatusCodes,  ReasonPhrases  } from 'http-status-codes';
 // import createCategorySchema from '../validators/books/create';
 // import updateCategorySchema from '../validators/books/update';
+import PinkModel from '../models/Pink'
 
 const controller = {
     list: async(req, res) => {
@@ -32,10 +33,13 @@ const controller = {
         // }
     
         const newCategory = new BestsellerModel(req.body);
+
+        const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'created', description: 'BestSellers'});
     
         try {
             await newCategory.save();
-        
+            await logs.save();
+
             return res.json(newCategory);
         } catch (err) {
             return res.json(StatusCodes.UNAUTHORIZED)
@@ -56,9 +60,13 @@ const controller = {
         //             error: validationResult.error.message
         //         })
         // }
+
+        const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'updated', description: 'BestSellers'});
+    
     
         try {
             await BestsellerModel.updateOne({ _id: req.params.Id }, req.body);
+            await logs.save();
         
             const updatedCategory = await BestsellerModel.find({ _id: req.params.Id });
         
@@ -76,8 +84,12 @@ const controller = {
     delete: async(req, res) => {
         const Id = req.params.Id;
     
+        const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'deleted', description: 'BestSellers'});
+    
         try {
             await BestsellerModel.deleteOne({ _id: Id });
+            await logs.save();
+            
             res.json({ deleted: true });
         } catch (err) {
             res.status(StatusCodes.NOT_FOUND).json({ message: ReasonPhrases.NOT_FOUND});

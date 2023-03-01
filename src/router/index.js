@@ -13,7 +13,16 @@ import ViewBook from "@/components/Books/ViewBook.vue";
 import EditBook from "@/components/Books/EditBook.vue";
 import Admin from "@/components/auth/Admin.vue";
 import CreateUser from "@/components/auth/CreateUser.vue";
+import { auth } from "@/firebase";
 // import VueRouter from 'vue-router'
+const requireAuth = (to, from, next) => {
+    let user = auth.currentUser;
+  if (!user) {
+    next({ name: "login" });
+  } else {
+    next();
+  }
+}
 
 const router = createRouter({
     history: createWebHistory(),
@@ -23,6 +32,7 @@ const router = createRouter({
         { path: "/login",name: 'login', component: () => import("../views/Login.vue")},
         // { path: "/contact", component: () => import("../views/ContactUs.vue")},
         { path: "/thankyou", component: () => import("../components/contact/ThankYou.vue")},
+        { path: "/logs", component: () => import("../components/Logs.vue")},
         { path: "/send-message", component: () => import("../components/contact/CreateComponent.vue")},
         { path: "/get-messages", component: () => import("../components/contact/ListComponent.vue")},
         { path: "/add-to-cart", component: () => import("../components/audiobooks/AddToCart.vue")},
@@ -62,11 +72,11 @@ const router = createRouter({
         },
         //{ path: '/edit/id' , name: 'Edit', component: Edit, },
         //{ path: '/booklist', name: 'BookList', component: BookList}
-        { path: '/dashboard', name: 'dashboard', component: Dashboard},
+        { path: '/dashboard', beforeEnter: requireAuth, name: 'dashboard', component: Dashboard},
         { path: '/new', name: 'new-client', component: NewClient},
         { path: '/edit/:c_id', name: 'edit-client', component: EditClient},
         { path: '/:c_id', name: 'view-client', component: ViewClient},
-        { path: '/showbook', name: 'show-book', component: ShowBook},
+        { path: '/showbook', component: () => import("../components/Books/ShowBook.vue")},
         { path: '/read-pagesa', name: 'read-pagesa', component: ReadPagesa},
         { path: '/cards', name: 'cards', component: Cards},
         { path: '/addbook', name: 'AddBook', component: AddBook},
@@ -124,5 +134,6 @@ router.beforeEach(async(to, from, next) => {
         next();
     }
 });
+
 
 export default router;

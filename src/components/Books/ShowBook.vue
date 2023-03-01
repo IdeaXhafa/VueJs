@@ -41,14 +41,19 @@
               Buy
             </button>
           </router-link>
+          <router-link to="/cart">
+            <button @click="handleSubmit(books)" class="btn btn-success">
+              Add to Cart
+            </button>
+          </router-link>
           <!-- <button v-if="books.cart" @click="add(book)" :disabled="book.cart">Book added to cart</button>  -->
         </div>
       </div>
     </div>
   </div>
   <router-link to="/addbook">
-      <button class="btn btn-primary">Add a Book</button>
-    </router-link>
+    <button class="btn btn-primary">Add a Book</button>
+  </router-link>
 
   <!-- <div id="show-book">
     <div
@@ -110,6 +115,8 @@
 <script>
 import { ref } from "@vue/reactivity";
 import axios from "axios";
+import getUser from '@/getUser';
+import router from '@/router';
 
 export default {
   name: "showbook",
@@ -118,12 +125,30 @@ export default {
       books: [],
     };
   },
-  created() {
+  async created() {
+    let apiURL2 = "http://localhost:4000/api/get-cart/";
+    await axios
+      .get(apiURL2 + this.id)
+      .then((res) => {
+        res.data.forEach((d) => {
+          this.cartRegistry.set(d._id, d)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     let apiURL = "http://localhost:4000/api/get-book";
-    axios
+    await axios
       .get(apiURL)
       .then((res) => {
-        this.books = res.data;
+        this.books = [];
+        res.data.forEach((d) => {
+            if(!this.cartRegistry.has(d._id)){
+              this.books.push(d)
+              console.log(true)
+            }
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -145,9 +170,26 @@ export default {
           });
       }
     },
+    handleSubmit: function (books) {
+      let apiURL = "http://localhost:4000/api/create-cart";
+      books.userId = this.id;
+
+      axios
+        .post(apiURL, books)
+        .then(() => {
+          router.push("/cart");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   setup() {
     const filePath = ref(null);
+    const { user } = getUser();
+    const cartRegistry = ref(new Map());
+
+    const id = user.value.uid;
 
     const deleteImage = async (filePath) => {
       const storage = getStorage();
@@ -158,6 +200,7 @@ export default {
         console.log(err.message);
       }
     };
+    return { id, cartRegistry }
   },
 };
 </script>

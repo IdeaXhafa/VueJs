@@ -5,10 +5,10 @@
     v-for="Bestsellers in Bestsellers"
     v-bind:key="Bestsellers._id"
   >
-    <div class="row" >
+    <div class="row">
       <div class="col">
         <div
-          class="card h-100" 
+          class="card h-100"
           style="
             width: 30%;
             max-width: 350%;
@@ -40,9 +40,11 @@
           <router-link to="/delete-bestseller">
             <button class="btn btn-danger">Delete</button>
           </router-link>
-          <router-link to="/cart">
-            <button @click="handleSubmit(Bestsellers)" class="btn btn-success">Add to Cart</button>
-          </router-link>
+
+          <button @click="handleSubmit(Bestsellers)" class="btn btn-success">
+            Add to Cart
+          </button>
+
           <!-- <add-to-cart :Bestsellers="Bestsellers" @removeFromCart="removeFromCart($event)" @addToCart="addToCart($event)"/> -->
         </div>
       </div>
@@ -62,7 +64,7 @@ import { getAuth } from "@firebase/auth";
 import getUser from "@/getUser";
 
 export default {
-  components: {addtocart},
+  components: { addtocart },
   name: "showbestseller",
   data() {
     return {
@@ -70,13 +72,31 @@ export default {
       //bestseller: Bestsellers.find((b) => b.id === this.$route.params.id)
     };
   },
-  created() {
+  async created() {
+    let apiURL2 = "http://localhost:4000/api/get-cart/";
+    await axios
+      .get(apiURL2 + this.id)
+      .then((res) => {
+        res.data.forEach((d) => {
+          this.cartRegistry.set(d._id, d)
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     let apiURL = "http://localhost:4000/api/get-bestseller";
-    axios
+    await axios
       .get(apiURL)
       .then((res) => {
-        this.Bestsellers = res.data;
-      })
+        this.Bestsellers = [];
+          res.data.forEach((d) => {
+            if(!this.cartRegistry.has(d._id)){
+              this.Bestsellers.push(d)
+              console.log(true)
+            }
+          });
+        })
       .catch((error) => {
         console.log(error);
       });
@@ -97,17 +117,16 @@ export default {
           });
       }
     },
-    addToCart: function(Bestsellers){
-        this.$emit('addToCart',Bestsellers);
+    addToCart: function (Bestsellers) {
+      this.$emit("addToCart", Bestsellers);
     },
-    removeFromCart:function(Bestsellers){
-        this.$emit('removeFromCart',Bestsellers);
+    removeFromCart: function (Bestsellers) {
+      this.$emit("removeFromCart", Bestsellers);
     },
-    handleSubmit: function(Bestsellers){
+    handleSubmit: function (Bestsellers) {
       let apiURL = "http://localhost:4000/api/create-cart";
       Bestsellers.userId = this.id;
-      
-      
+
       axios
         .post(apiURL, Bestsellers)
         .then(() => {
@@ -116,14 +135,14 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    }
+    },
   },
   setup() {
     const filePath = ref(null);
     const { user } = getUser();
+    const cartRegistry = ref(new Map());
 
     const id = user.value.uid;
-
     const deleteImage = async (filePath) => {
       const storage = getStorage();
       const storageRef = ref(storage, filePath);
@@ -133,7 +152,12 @@ export default {
         console.log(err.message);
       }
     };
-    return { id }
+    return { id, cartRegistry };
+  },
+  computed: {
+    checkId2: function () {
+      return true;
+    },
   },
 };
 </script>
@@ -154,6 +178,5 @@ export default {
     margin-bottom: 20px;
   }
 }
-
 </style>
   
