@@ -30,7 +30,6 @@ const router = createRouter({
         { path: "/", component: () => import("../views/Home.vue")},
         { path: "/signup", component: () => import("../views/Signup.vue")},
         { path: "/login",name: 'login', component: () => import("../views/Login.vue")},
-        // { path: "/contact", component: () => import("../views/ContactUs.vue")},
         { path: "/thankyou", component: () => import("../components/contact/ThankYou.vue")},
         { path: "/logs", component: () => import("../components/Logs.vue")},
         { path: "/send-message", component: () => import("../components/contact/CreateComponent.vue")},
