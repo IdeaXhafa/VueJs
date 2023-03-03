@@ -1,92 +1,68 @@
-const AudioBook = require('../models/Audiobook')
+import AudiobookModel from '../models/Audiobook';
+import { StatusCodes,  ReasonPhrases  } from 'http-status-codes';
 
-const index = (req,res,next) => {
-    AudioBook.find()
-    .then(response => {
-        res.json({
-            response
-        })
-    })
-    .catch(error => {
-        res.json({
-            message: 'An error occured!'
-        })
-    })
-}
-
-const show = (req,res,next) => {
-    let bestsellerID = req.body.bestsellerID
-    AudioBook.findById(bestsellerID)
-    .then(response => {
-        res.json({
-            response
-        })
-    })
-    .catch(error => {
-        res.json({
-            message: 'An error occured!'
-        })
-    })
-}
-
-const store = (req,res,next) => {
-    let AudioBook = new AudioBook({
-        title: equal.body.title,
-        author: equal.body.author,
-        price: equal.body.price,
-        img: equal.body.img
-    })
-    AudioBook.save()
-    .then(response => {
-        res.json({
-            message: 'Added successfully!'
-        })
-    })
-    .catch(error => {
-        res.json({
-            message: 'An error occured!'
-        })
-    })
-}
-
-const update = (req,res,next) => {
-    let bestsellerID = req.body.bestsellerID
-
-    let updatedData = {
-        title: equal.body.title,
-        author: equal.body.author,
-        price: equal.body.price,
-        img: equal.body.img
+const controller = {
+    list: async(req, res) => {
+        const list = await AudiobookModel.find();
+        return res.json(list);
+    },
+    find: async(req, res) => {
+        try {
+            const category = await AudiobookModel.findOne({ _id: req.params.Id });
+    
+            if (!category) throw Error("Category not found");
+            return res.json(category);
+        } catch (error) {
+            res.status(404).json({ error: error.message })
+        }
+    },
+    create: async(req, res) => {
+        console.log('req.body - ', req.body);
+    
+        const newCategory = new AudiobookModel(req.body);
+    
+        try {
+            await newCategory.save();
+        
+            return res.json(newCategory);
+        } catch (err) {
+            return res.json(StatusCodes.UNAUTHORIZED)
+                .json({
+                    message: ReasonPhrases.UNAUTHORIZED,
+                    error: err.message
+                });
+        }
+    },
+    edit: async(req, res) => {
+    
+        try {
+            await AudiobookModel.updateOne({ _id: req.params.Id }, req.body);
+        
+            const updatedCategory = await AudiobookModel.find({ _id: req.params.Id });
+        
+            return res.json(updatedCategory);
+        } catch (err) {
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({
+                    message: ReasonPhrases.UNAUTHORIZED,
+                    error: validationResult.error.message
+                })
+        }
+        
+    },
+    delete: async(req, res) => {
+        const Id = req.params.Id;
+    
+        try {
+            await AudiobookModel.deleteOne({ _id: Id });
+            res.json({ deleted: true });
+        } catch (err) {
+            res.status(StatusCodes.NOT_FOUND).json({ message: ReasonPhrases.NOT_FOUND});
+        }
+    
     }
-    AudioBook.findByIdAndUpdate(bestsellerID, {$set: updatedData})
-    .then(response => {
-        res.json({
-            message: 'Updated successfully!'
-        })
-    })
-    .catch(error => {
-        res.json({
-            message: 'An error occured!'
-        })
-    })
-}
+};
 
-const destroy = (req,res,next) => {
-    let bestsellerID = req.body.bestsellerID
 
-    AudioBook.findOneAndRemove(bestsellerID)
-    .then(response => {
-        res.json({
-            message: 'Deleted successfully!'
-        })
-    })
-    .catch(error => {
-        res.json({
-            message: 'An error occured!'
-        })
-    })
-}
-
-module.exports = {
-    index,store,show,update,destroy
-}
+export default controller;

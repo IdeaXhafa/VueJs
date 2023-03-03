@@ -12,7 +12,7 @@ const bookRouter = express.Router({ mergeParams:true });
 bookRouter.get('/get-book', BookController.list)
 bookRouter.post('/create-book', BookController.create)
 bookRouter.put('/update-book/:id', BookController.edit)
-bookRouter.delete('/:id', BookController.delete)
+bookRouter.delete('/delete-book/:id', BookController.delete)
 
 export default bookRouter;
 

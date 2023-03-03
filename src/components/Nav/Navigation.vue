@@ -22,6 +22,9 @@
                         <SidebarLink to="/showbook">Books</SidebarLink>
                     </li>
                     <li class="nav-item">
+                    <SidebarLink to="/audiobook">Audiobooks</SidebarLink>
+                    </li>
+                    <li class="nav-item">
                     <SidebarLink to="/showbestseller">Best Sellers</SidebarLink>
                     </li>
                     <li class="nav-item">

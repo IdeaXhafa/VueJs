@@ -33,9 +33,12 @@ const controller = {
         // }
     
         const newCategory = new BookModel(req.body);
+
+        const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'created', description: 'Books'});
     
         try {
             await newCategory.save();
+            await logs.save();
         
             return res.json(newCategory);
         } catch (err) {
@@ -57,11 +60,14 @@ const controller = {
         //             error: validationResult.error.message
         //         })
         // }
+
+        const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'updated', description: 'Books'});
     
         try {
-            await BookModel.updateOne({ _id: req.params.Id }, req.body);
+            await BookModel.updateOne({ _id: req.params.id }, req.body);
+            await logs.save();
         
-            const updatedCategory = await BookModel.find({ _id: req.params.Id });
+            const updatedCategory = await BookModel.find({ _id: req.params.id });
         
             return res.json(updatedCategory);
         } catch (err) {
@@ -75,10 +81,14 @@ const controller = {
         
     },
     delete: async(req, res) => {
-        const Id = req.params.Id;
+        const Id = req.params.id;
+
+        const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'deleted', description: 'Books'});
     
         try {
             await BookModel.deleteOne({ _id: Id });
+            await logs.save();
+            
             res.json({ deleted: true });
         } catch (err) {
             res.status(StatusCodes.NOT_FOUND).json({ message: ReasonPhrases.NOT_FOUND});

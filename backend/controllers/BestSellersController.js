@@ -65,10 +65,10 @@ const controller = {
     
     
         try {
-            await BestsellerModel.updateOne({ _id: req.params.Id }, req.body);
+            await BestsellerModel.updateOne({ _id: req.params.id }, req.body);
             await logs.save();
         
-            const updatedCategory = await BestsellerModel.find({ _id: req.params.Id });
+            const updatedCategory = await BestsellerModel.find({ _id: req.params.id });
         
             return res.json(updatedCategory);
         } catch (err) {
@@ -82,7 +82,7 @@ const controller = {
         
     },
     delete: async(req, res) => {
-        const Id = req.params.Id;
+        const Id = req.params.id;
     
         const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'deleted', description: 'BestSellers'});
     

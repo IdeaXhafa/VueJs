@@ -39,7 +39,7 @@
                   <p><strong>{{ Bestsellers.price }} $</strong></p>
                 </div>
 
-                <button class="btn btn-danger" style="height:50px;">Remove from Cart</button>
+                <button @click="deleteItem" class="btn btn-danger" style="height:50px;">Remove from Cart</button>
 
               </div>
             </div>
@@ -177,6 +177,23 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+  },
+  methods: {
+    deleteItem(id){
+      let apiURL = `http://localhost:4000/api/delete-cart/${id}`;
+      let indexOfArrayItem = this.cartItems.findIndex((i) => i._id === id);
+
+      if (window.confirm("Do you really want to remove this from your cart?")) {
+        axios
+          .delete(apiURL)
+          .then(() => {
+            this.cartItems.splice(indexOfArrayItem, 1);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
   },
   computed: {
     totalPrice() {

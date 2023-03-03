@@ -1,27 +1,13 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import mongoose from "mongoose";
 
-let audiobookSchema = new Schema(
-  {
-    title: {
-      type: String,
-    },
-    author: {
-      type: String,
-    },
-    price: {
-      type: Number,
-    },
-    picture: {
-      type: String,
-    },
-    listeners: {
-      type: Number,
-    }
-  },
-  {
-    collection: 'audiobook',
-  },
-)
+const Schema = mongoose.Schema({
+  title: String,
+  author: String,
+  price: Number,
+  listeners: Number,
+  description: String,
+  rating: Number
+})
 
-module.exports = mongoose.model('Audioook', audiobookSchema)
+const model = mongoose.model('Audiobook', Schema)
+export default model;

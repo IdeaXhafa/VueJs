@@ -76,9 +76,9 @@ export default {
     };
   },
   created() {
-    let apiURL = `http://localhost:4000/api/edit-bestseller/${this.$route.params.id}`;
-
-    axios.get(apiURL).then((res) => {
+    let apiURL = "http://localhost:4000/api/update-bestseller/";
+    axios.get(apiURL + this.$route.params).then((res) => {
+      console.log(this.$route.params);
       this.bestseller = res.data;
     });
   },
@@ -96,6 +96,9 @@ export default {
           console.log(error);
         });
     },
+  },
+  setup() {
+   
   },
 };
 </script>

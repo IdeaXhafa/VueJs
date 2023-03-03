@@ -1,5 +1,4 @@
 <template>
-  Feed
   <h1>Hi ! {{ user.email}}</h1>
 </template>
 

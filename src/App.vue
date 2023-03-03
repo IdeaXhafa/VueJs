@@ -3,7 +3,7 @@
   <Sidebar v-if="!navigation"/>
   <div :style="{ 'margin-left': sidebarWidth }">
   <Home/>
-  <Navigation/>
+  <!-- <Navigation/> -->
   <router-view/>
   </div>
   
@@ -22,7 +22,7 @@ import "firebase/auth"
 export default {
   // name: 'App',
   components: {
-      Navigation,
+      //Navigation,
       Sidebar,
       Home,
       Footer,

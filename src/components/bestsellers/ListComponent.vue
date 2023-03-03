@@ -34,11 +34,16 @@
             <p class="card-text">Price: {{ Bestsellers.price }} $</p>
             <p class="card-text">Available: {{ Bestsellers.isAvailable }}</p>
           </div>
-          <router-link to="/editbestseller">
+          <router-link :to="'/editbestseller/' + Bestsellers._id">
             <button class="btn btn-secondary">Edit</button>
           </router-link>
           <router-link to="/delete-bestseller">
-            <button class="btn btn-danger">Delete</button>
+            <button
+              class="btn btn-danger"
+              @click="deletebestseller(Bestsellers._id)"
+            >
+              Delete
+            </button>
           </router-link>
 
           <button @click="handleSubmit(Bestsellers)" class="btn btn-success">
@@ -78,8 +83,8 @@ export default {
       .get(apiURL2 + this.id)
       .then((res) => {
         res.data.forEach((d) => {
-          this.cartRegistry.set(d._id, d)
-        })
+          this.cartRegistry.set(d._id, d);
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -90,19 +95,19 @@ export default {
       .get(apiURL)
       .then((res) => {
         this.Bestsellers = [];
-          res.data.forEach((d) => {
-            if(!this.cartRegistry.has(d._id)){
-              this.Bestsellers.push(d)
-              console.log(true)
-            }
-          });
-        })
+        res.data.forEach((d) => {
+          if (!this.cartRegistry.has(d._id)) {
+            this.Bestsellers.push(d);
+            console.log(true);
+          }
+        });
+      })
       .catch((error) => {
         console.log(error);
       });
   },
   methods: {
-    deleteStudent(id) {
+    deletebestseller(id) {
       let apiURL = `http://localhost:4000/api/delete-bestseller/${id}`;
       let indexOfArrayItem = this.Bestsellers.findIndex((i) => i._id === id);
 
@@ -117,6 +122,9 @@ export default {
           });
       }
     },
+    //deletebestseller(id) {
+    // this.$store.dispatch('deleteCategory', id)
+    // }
     addToCart: function (Bestsellers) {
       this.$emit("addToCart", Bestsellers);
     },
