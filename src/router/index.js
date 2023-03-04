@@ -13,7 +13,9 @@ import ViewBook from "@/components/Books/ViewBook.vue";
 import EditBook from "@/components/Books/EditBook.vue";
 import Admin from "@/components/auth/Admin.vue";
 import CreateUser from "@/components/auth/CreateUser.vue";
-import { auth } from "@/firebase";
+import { auth, db } from "@/firebase";
+import { doc, getDoc } from "firebase/firestore";
+
 // import VueRouter from 'vue-router'
 const requireAuth = (to, from, next) => {
     let user = auth.currentUser;
@@ -23,6 +25,15 @@ const requireAuth = (to, from, next) => {
     next();
   }
 }
+
+const requireAdmin = async (to, from, next) => {
+    const userSnap = await getDoc(doc(db, "users", auth.currentUser?.uid));
+    if (userSnap?.data()?.role === "admin") {
+      next();
+      return;
+    }
+    next('/');
+};
 
 const router = createRouter({
     history: createWebHistory(),
@@ -80,7 +91,7 @@ const router = createRouter({
         { path: '/showbook', component: () => import("../components/Books/ShowBook.vue")},
         { path: '/read-pagesa', name: 'read-pagesa', component: ReadPagesa},
         { path: '/cards', name: 'cards', component: Cards},
-        { path: '/addbook', name: 'AddBook', component: AddBook},
+        { path: '/addbook', beforeEnter: requireAdmin, name: 'AddBook', component: AddBook},
         { path: '/:book_id', name: 'view-book', component: ViewBook},
         // { path: '/edit/:book_id', name: 'edit-book', component: EditBook},
         { path: '/all-users', 

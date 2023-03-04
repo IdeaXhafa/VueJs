@@ -1,7 +1,7 @@
 import BookModel from '../models/Book';
 import { StatusCodes,  ReasonPhrases  } from 'http-status-codes';
-// import createCategorySchema from '../validators/books/create';
-// import updateCategorySchema from '../validators/books/update';
+import createBookSchema from '../validators/books/create';
+import updateBookSchema from '../validators/books/update';
 import PinkModel from '../models/Pink'
 
 const controller = {
@@ -21,16 +21,16 @@ const controller = {
     },
     create: async(req, res) => {
         console.log('req.body - ', req.body);
-        // const validationResult = createCategorySchema.validate(req.body);
+        const validationResult = createBookSchema.validate(req.body);
     
-        // if (validationResult.error) {
-        //     return res
-        //         .status(StatusCodes.UNAUTHORIZED)
-        //         .json({
-        //             message: ReasonPhrases.UNAUTHORIZED,
-        //             error: validationResult.error.message
-        //         });
-        // }
+        if (validationResult.error) {
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({
+                    message: ReasonPhrases.UNAUTHORIZED,
+                    error: validationResult.error.message
+                });
+        }
     
         const newCategory = new BookModel(req.body);
 
@@ -50,16 +50,16 @@ const controller = {
         }
     },
     edit: async(req, res) => {
-        // const validationResult = updateCategorySchema.validate(req.body);
+        const validationResult = updateBookSchema.validate(req.body);
     
-        // if (validationResult.error) {
-        //     return res
-        //         .status(StatusCodes.UNAUTHORIZED)
-        //         .json({
-        //             message: ReasonPhrases.UNAUTHORIZED,
-        //             error: validationResult.error.message
-        //         })
-        // }
+        if (validationResult.error) {
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({
+                    message: ReasonPhrases.UNAUTHORIZED,
+                    error: validationResult.error.message
+                })
+        }
 
         const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'updated', description: 'Books'});
     

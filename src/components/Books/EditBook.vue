@@ -32,6 +32,15 @@
               required
             />
           </div>
+          <div class="form-group">
+            <label>Price</label>
+            <input
+              type="text"
+              class="form-control"
+              v-model="books.price"
+              required
+            />
+          </div>
         </div>
 
         <div class="modal-footer">

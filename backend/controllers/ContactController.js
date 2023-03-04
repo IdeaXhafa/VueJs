@@ -1,7 +1,6 @@
 import ContactModel from '../models/Contact';
 import { StatusCodes,  ReasonPhrases  } from 'http-status-codes';
-// import createCategorySchema from '../validators/books/create';
-// import updateCategorySchema from '../validators/books/update';
+import createContactSchema from '../validators/contact/create';
 
 const controller = {
     list: async(req, res) => {
@@ -20,16 +19,16 @@ const controller = {
     },
     create: async(req, res) => {
         console.log('req.body - ', req.body);
-        // const validationResult = createCategorySchema.validate(req.body);
+        const validationResult = createContactSchema.validate(req.body);
     
-        // if (validationResult.error) {
-        //     return res
-        //         .status(StatusCodes.UNAUTHORIZED)
-        //         .json({
-        //             message: ReasonPhrases.UNAUTHORIZED,
-        //             error: validationResult.error.message
-        //         });
-        // }
+        if (validationResult.error) {
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({
+                    message: ReasonPhrases.UNAUTHORIZED,
+                    error: validationResult.error.message
+                });
+        }
     
         const newCategory = new ContactModel(req.body);
     

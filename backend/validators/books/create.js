@@ -1,8 +1,11 @@
 import Joi from 'joi';
 
-const createCategorySchema = Joi.object({
-    title: Joi.string().required().min(5).max(250),
-    author: Joi.string().allow(null)
+const createBookSchema = Joi.object({
+    title: Joi.string().required(),
+    author: Joi.string().required(),
+    price: Joi.number().required(),
+    photoUrl: Joi.string().required(),
+    filePath: Joi.string().required(),
 });
 
-export default createCategorySchema;
+export default createBookSchema;

@@ -27,6 +27,7 @@
           <div class="card-body">
             <h5 class="card-title">{{ books.title }}</h5>
             <p class="card-text">Author: {{ books.author }}</p>
+            <p class="card-text">Price: {{ books.price }}</p>
           </div>
           <router-link :to="'/edit-book/' + books._id">
             <button class="btn btn-secondary">Edit</button>

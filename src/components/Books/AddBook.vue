@@ -18,11 +18,15 @@
           <div class="modal-body">
             <div class="form-group">
               <label>Title:</label>
-              <input type="text" v-model="books.title" required />
+              <input type="text" v-model="books.title" />
             </div>
             <div class="form-group">
               <label>Author:</label>
-              <input type="text" v-model="books.author" required />
+              <input type="text" v-model="books.author" />
+            </div>
+            <div class="form-group">
+              <label>Price:</label>
+              <input type="text" v-model="books.price" />
             </div>
           </div>
           <div class="form-group">
@@ -111,6 +115,7 @@ export default {
     const books = ref2({
       title: "",
       author: "",
+      price: "",
       photoUrl: "",
       filePath: "",
     });
@@ -143,6 +148,7 @@ export default {
           books.value = {
             title: "",
             author: "",
+            price: "",
             photoUrl: "",
             filePath: "",
           };

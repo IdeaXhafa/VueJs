@@ -1,7 +1,7 @@
 import BestsellerModel from '../models/BestSeller';
 import { StatusCodes,  ReasonPhrases  } from 'http-status-codes';
-// import createCategorySchema from '../validators/books/create';
-// import updateCategorySchema from '../validators/books/update';
+import createBestsellerSchema from '../validators/bestsellers/create';
+import updateBestsellerSchema from '../validators/bestsellers/update';
 import PinkModel from '../models/Pink'
 
 const controller = {
@@ -21,16 +21,16 @@ const controller = {
     },
     create: async(req, res) => {
         console.log('req.body - ', req.body);
-        // const validationResult = createCategorySchema.validate(req.body);
+        const validationResult = createBestsellerSchema.validate(req.body);
     
-        // if (validationResult.error) {
-        //     return res
-        //         .status(StatusCodes.UNAUTHORIZED)
-        //         .json({
-        //             message: ReasonPhrases.UNAUTHORIZED,
-        //             error: validationResult.error.message
-        //         });
-        // }
+        if (validationResult.error) {
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({
+                    message: ReasonPhrases.UNAUTHORIZED,
+                    error: validationResult.error.message
+                });
+        }
     
         const newCategory = new BestsellerModel(req.body);
 
@@ -50,16 +50,16 @@ const controller = {
         }
     },
     edit: async(req, res) => {
-        // const validationResult = updateCategorySchema.validate(req.body);
+        const validationResult = updateBestsellerSchema.validate(req.body);
     
-        // if (validationResult.error) {
-        //     return res
-        //         .status(StatusCodes.UNAUTHORIZED)
-        //         .json({
-        //             message: ReasonPhrases.UNAUTHORIZED,
-        //             error: validationResult.error.message
-        //         })
-        // }
+        if (validationResult.error) {
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({
+                    message: ReasonPhrases.UNAUTHORIZED,
+                    error: validationResult.error.message
+                })
+        }
 
         const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'updated', description: 'BestSellers'});
     

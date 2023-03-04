@@ -1,5 +1,7 @@
 import AudiobookModel from '../models/Audiobook';
 import { StatusCodes,  ReasonPhrases  } from 'http-status-codes';
+import createAudiobookSchema from '../validators/audiobooks/create'
+import updateAudiobookSchema from '../validators/audiobooks/update'
 
 const controller = {
     list: async(req, res) => {
@@ -18,6 +20,16 @@ const controller = {
     },
     create: async(req, res) => {
         console.log('req.body - ', req.body);
+        const validationResult = createAudiobookSchema.validate(req.body);
+    
+        if (validationResult.error) {
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({
+                    message: ReasonPhrases.UNAUTHORIZED,
+                    error: validationResult.error.message
+                });
+        }
     
         const newCategory = new AudiobookModel(req.body);
     
@@ -34,7 +46,17 @@ const controller = {
         }
     },
     edit: async(req, res) => {
+        const validationResult = updateAudiobookSchema.validate(req.body);
     
+        if (validationResult.error) {
+            return res
+                .status(StatusCodes.UNAUTHORIZED)
+                .json({
+                    message: ReasonPhrases.UNAUTHORIZED,
+                    error: validationResult.error.message
+                })
+        }
+
         try {
             await AudiobookModel.updateOne({ _id: req.params.Id }, req.body);
         

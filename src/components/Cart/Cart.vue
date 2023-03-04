@@ -39,7 +39,7 @@
                   <p><strong>{{ Bestsellers.price }} $</strong></p>
                 </div>
 
-                <button @click="deleteItem" class="btn btn-danger" style="height:50px;">Remove from Cart</button>
+                <button @click="deleteItem(Bestsellers._id)" class="btn btn-danger" style="height:50px;">Remove from Cart</button>
 
               </div>
             </div>
@@ -107,7 +107,7 @@
                   "
                 >
                   Products
-                  <span>$53.98</span>
+                  <span>{{ totalPrice }}</span>
                 </li>
                 <li
                   class="
@@ -181,13 +181,13 @@ export default {
   methods: {
     deleteItem(id){
       let apiURL = `http://localhost:4000/api/delete-cart/${id}`;
-      let indexOfArrayItem = this.cartItems.findIndex((i) => i._id === id);
+      let indexOfArrayItem = this.Bestsellers.findIndex((i) => i._id === id);
 
       if (window.confirm("Do you really want to remove this from your cart?")) {
         axios
           .delete(apiURL)
           .then(() => {
-            this.cartItems.splice(indexOfArrayItem, 1);
+            this.Bestsellers.splice(indexOfArrayItem, 1);
           })
           .catch((error) => {
             console.log(error);
@@ -197,7 +197,14 @@ export default {
   },
   computed: {
     totalPrice() {
-      return this.cartItems.reduce((sum, item) => sum + Number(item.price), 0);
+      // let price = 0;
+
+      // this.Bestsellers.forEach((it) => {
+      //   price += it.price;
+      //   console.log(it.price)
+      // })
+      // return price;
+      return this.Bestsellers.reduce((sum, item) => sum + Number(item.price), 0);
     },
   },
   setup() {
