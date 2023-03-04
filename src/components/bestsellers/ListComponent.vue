@@ -170,7 +170,7 @@ export default {
 };
 </script>
   
-  <style>
+<style scoped>
 .btn-success {
   margin-right: 10px;
 }
@@ -185,6 +185,10 @@ export default {
     display: block;
     margin-bottom: 20px;
   }
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
   

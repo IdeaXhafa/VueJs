@@ -14,6 +14,7 @@ import cartAPI from './routes/cart.route'
 import bodyParser from 'body-parser'
 import pinkAPI from './routes/pink.route'
 import audiobookAPI from './routes/audiobook.route'
+import savedAPI from './routes/saved.route'
 
 mongoose.connect(`${MONGO_CONNECTION_URI}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`).then(() => {
   console.log(`Connected to mongodb on port ${MONGO_DB_PORT}`);
@@ -38,7 +39,7 @@ mongoose.connect(`${MONGO_CONNECTION_URI}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`).th
   // app.use(express.json());
 
   // API
-app.use('/api', bookAPI, contactAPI, bestsellerAPI, cartAPI, pinkAPI, audiobookAPI)
+app.use('/api', bookAPI, contactAPI, bestsellerAPI, cartAPI, pinkAPI, audiobookAPI, savedAPI)
   
   //port
   app.listen(API_PORT, () => {

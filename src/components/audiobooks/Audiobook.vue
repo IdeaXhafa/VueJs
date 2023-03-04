@@ -15,7 +15,7 @@
               {{ Audiobook.author }}
             </h3>
             <p class="card-text">{{ Audiobook.description }}</p>
-            <p class="card-text">{{ Audiobook.listeners }} listeners</p>
+            <p class="card-text">{{ Audiobook.listeners }}</p>
             <p class="card-text">
               {{ Audiobook.rating }} / 10
               <img src="../../assets/star.png" class="star" />
@@ -23,20 +23,23 @@
             <p class="card-text">
               <small class="text-muted">{{ Audiobook.price }} $</small>
             </p>
-            <button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-save"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"
-              />
-            </svg>
-          </button>
+            <button @click="handleSubmit(Audiobook)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-bookmarks"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"
+                />
+                <path
+                  d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -49,6 +52,9 @@
 
 <script>
 import axios from "axios";
+import getUser from "@/getUser";
+import { ref } from "@vue/reactivity";
+import router from "@/router";
 
 export default {
   data() {
@@ -56,16 +62,57 @@ export default {
       Audiobook: [],
     };
   },
-  created() {
+  async created() {
+    let apiURL2 = "http://localhost:4000/api/get-saved/";
+    await axios
+      .get(apiURL2 + this.id)
+      .then((res) => {
+        res.data.forEach((d) => {
+          this.savedRegistry.set(d._id, d);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     let apiURL = "http://localhost:4000/api/get-audiobook";
-    axios
+    await axios
       .get(apiURL)
       .then((res) => {
-        this.Audiobook = res.data;
+        this.Audiobook = [];
+        res.data.forEach((d) => {
+          if (!this.savedRegistry.has(d._id)) {
+            this.Audiobook.push(d);
+            console.log(true);
+          }
+        });
       })
       .catch((error) => {
         console.log(error.response.data);
       });
+  },
+  methods: {
+    handleSubmit: function (Audiobook) {
+      let apiURL = "http://localhost:4000/api/create-saved";
+      Audiobook.userId = this.id;
+
+      axios
+        .post(apiURL, Audiobook)
+        .then(() => {
+          router.push("/saved");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  setup() {
+    const { user } = getUser();
+    const savedRegistry = ref(new Map());
+
+    const id = user.value.uid;
+
+    return { id, savedRegistry };
   },
 };
 </script>

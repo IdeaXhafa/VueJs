@@ -98,6 +98,7 @@ const email = ref("");
     <SidebarLink to="/showbestseller">Best Sellers</SidebarLink>
     <!-- <SidebarLink to="/read-pagesa">Pagesa</SidebarLink> -->
     <SidebarLink to="/cart">Your Cart</SidebarLink>
+    <SidebarLink to="/saved">Saved</SidebarLink>
     <SidebarLink to="/cards">Cards</SidebarLink>
     <SidebarLink to="/send-message">Contact Us</SidebarLink>
     <SidebarLink to="/dash">Dashboard</SidebarLink>

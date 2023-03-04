@@ -37,6 +37,7 @@ const router = createRouter({
         { path: "/audiobook", component: () => import("../components/audiobooks/Audiobook.vue")},
         { path: '/addaudiobook', component: () => import("../components/audiobooks/CreateAudiobook.vue")},
         { path: "/cart", component: () => import("../components/Cart/Cart.vue")},
+        { path: "/saved", component: () => import("../components/Saved/Saved.vue")},
         { path: '/showbestseller',name: 'showbestseller', component: () => import("../components/bestsellers/ListComponent.vue")},
         { path: '/addbestseller',name: 'addbestseller', component: () => import("../components/bestsellers/CreateComponent.vue")},
         { path: '/editbestseller/:id',name: 'editbestseller', component: () => import("../components/bestsellers/EditComponent.vue")},

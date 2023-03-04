@@ -145,12 +145,17 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
 #show-book {
   height: 100%;
   width: 100%;
   display: flex;
   padding: 90px;
   /* flex-wrap: wrap; */
+}
+
+.row{
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
