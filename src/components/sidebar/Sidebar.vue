@@ -39,43 +39,7 @@ const router = useRouter();
 const isLoggedIn = ref(false);
 const email = ref("");
 
-// let auth;
-// onMounted(()=> {
-//   auth = getAuth();
-//   onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//       isLoggedIn.value = true;
-//     } else {
-//       isLoggedIn.value = false;
-//     }
-//   });
-// });
 
-// const handleLogOut = () => {
-//   signOut(auth).then(() => {
-//     router.push("/");
-//   });
-// };
-
-// const logout = document.querySelector('#logout');
-//     if(logout){
-//         logout.addEventListener('click', (e) => {
-//         e.preventDefault();
-//         auth.signOut().then(()=> {
-//             console.log("user signed out!")
-//         })
-//         })
-//     }
-
-// const getUser =  () => {
-//   firebase.auth().onAuthStateChanged(function(user) {
-//         if (user) {
-//           console.log(getAuth(), email.value)
-//       } else {
-//         console.log("You're not logged in !")
-//       }
-//     });
-// }
 </script>
 
 <template>

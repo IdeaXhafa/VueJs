@@ -1,9 +1,9 @@
 <template>
- 
-  <Sidebar v-if="!navigation"/>
+<!--  
+  <Sidebar v-if="!navigation"/> -->
   <div :style="{ 'margin-left': sidebarWidth }">
   <Home/>
-  <!-- <Navigation/> -->
+  <Navigation/>
   <router-view/>
   </div>
   
@@ -22,8 +22,8 @@ import "firebase/auth"
 export default {
   // name: 'App',
   components: {
-      //Navigation,
-      Sidebar,
+      Navigation,
+      // Sidebar,
       Home,
       Footer,
       setup(){
