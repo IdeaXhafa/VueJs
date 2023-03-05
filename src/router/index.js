@@ -6,7 +6,6 @@ import EditClient from '@/components/Clients/EditClient'
 import NewClient from '@/components/Clients/NewClient'
 import ShowBook from "@/components/Books/ShowBook.vue";
 import ReadPagesa from "@/components/Pagesa/ReadPagesa.vue";
-import Cards from "@/components/Cards.vue";
 import AddBook from "@/components/Books/AddBook.vue";
 import dashboard from "@/components/admin/dashboard.vue";
 import ViewBook from "@/components/Books/ViewBook.vue";
@@ -42,7 +41,7 @@ const router = createRouter({
         { path: "/signup", component: () => import("../views/Signup.vue")},
         { path: "/login",name: 'login', component: () => import("../views/Login.vue")},
         { path: "/thankyou", component: () => import("../components/contact/ThankYou.vue")},
-        { path: "/logs", component: () => import("../components/Logs.vue")},
+        { path: "/logs",beforeEnter: requireAdmin, component: () => import("../components/Logs.vue")},
         { path: "/send-message", component: () => import("../components/contact/CreateComponent.vue")},
         { path: "/get-messages", component: () => import("../components/contact/ListComponent.vue")},
         { path: "/audiobook", component: () => import("../components/audiobooks/Audiobook.vue")},
@@ -90,7 +89,6 @@ const router = createRouter({
         { path: '/:c_id', name: 'view-client', component: ViewClient},
         { path: '/showbook', component: () => import("../components/Books/ShowBook.vue")},
         { path: '/read-pagesa', name: 'read-pagesa', component: ReadPagesa},
-        { path: '/cards', name: 'cards', component: Cards},
         { path: '/addbook', beforeEnter: requireAdmin, name: 'AddBook', component: AddBook},
         { path: '/:book_id', name: 'view-book', component: ViewBook},
         // { path: '/edit/:book_id', name: 'edit-book', component: EditBook},

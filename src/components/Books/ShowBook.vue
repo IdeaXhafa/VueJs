@@ -37,7 +37,7 @@
               Add to Cart
             </button>
           </router-link>
-          <button class="btn btn-danger" style="width:100px;" @click="deleteBook(books._id)">
+          <button class="btn btn-danger" style="width:100px; text-align: center; margin: auto;" @click="deleteBook(books._id)">
             Delete
           </button>
           <!-- <button v-if="books.cart" @click="add(book)" :disabled="book.cart">Book added to cart</button>  -->

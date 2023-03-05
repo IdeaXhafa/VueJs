@@ -107,7 +107,7 @@
                   "
                 >
                   Products
-                  <span>{{ totalPrice }}</span>
+                  <span>{{ totalPrice }} $</span>
                 </li>
                 <li
                   class="
@@ -134,11 +134,8 @@
                 >
                   <div>
                     <strong>Total amount</strong>
-                    <strong>
-                      <p class="mb-0">(including VAT)</p>
-                    </strong>
                   </div>
-                  <span><strong>$53.98</strong></span>
+                  <span><strong>{{ totalPrice }} $</strong></span>
                 </li>
               </ul>
 

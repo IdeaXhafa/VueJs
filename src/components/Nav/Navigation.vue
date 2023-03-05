@@ -38,6 +38,7 @@
                     <li class="nav-item">
                         <SidebarLink to="/dash">Dashboard</SidebarLink>
                     </li>
+                    <SidebarLink to="/logs">Logs</SidebarLink>
                     <li class="nav-item">
                     <SidebarLink to="/send-message">Contact Us</SidebarLink>
                     </li>

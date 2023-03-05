@@ -46,7 +46,8 @@
             </button>
           </router-link>
 
-          <button @click="handleSubmit(Bestsellers)" class="btn btn-success">
+          <button @click="handleSubmit(Bestsellers)" class="btn btn-success" style="width:
+          120px; text-align: center; margin: auto;">
             Add to Cart
           </button>
 
