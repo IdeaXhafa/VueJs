@@ -54,19 +54,6 @@ const router = createRouter({
         { path: '/edit-book/:id',name: 'edit-book', component: () => import("../components/Books/EditBook.vue")},
         { path: "/chat", component: () => import("../views/Chat.vue")},
         {
-            path: '/create-magazine',
-            component: () => import('../components/magazines/Create.vue'),
-        },
-        {
-            path: '/magazines',
-            component: () => import('../components/magazines/List.vue'),
-        },
-        {
-            path: '/create-bestseller',
-            name: 'home',
-            component: () => import('../components/bestsellers/CreateComponent'),
-        },
-        {
             path: '/view',
             name: 'view',
             component: () => import('../components/bestsellers/ListComponent'),
