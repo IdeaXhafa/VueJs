@@ -8,7 +8,6 @@ import ShowBook from "@/components/Books/ShowBook.vue";
 import ReadPagesa from "@/components/Pagesa/ReadPagesa.vue";
 import AddBook from "@/components/Books/AddBook.vue";
 import dashboard from "@/components/admin/dashboard.vue";
-import ViewBook from "@/components/Books/ViewBook.vue";
 import EditBook from "@/components/Books/EditBook.vue";
 import Admin from "@/components/auth/Admin.vue";
 import CreateUser from "@/components/auth/CreateUser.vue";
@@ -75,7 +74,6 @@ const router = createRouter({
         { path: '/showbook', component: () => import("../components/Books/ShowBook.vue")},
         { path: '/read-pagesa', name: 'read-pagesa', component: ReadPagesa},
         { path: '/addbook', beforeEnter: requireAdmin, name: 'AddBook', component: AddBook},
-        { path: '/:book_id', name: 'view-book', component: ViewBook},
         { path: '/all-users', 
         name: 'all-users', 
         component: Admin,

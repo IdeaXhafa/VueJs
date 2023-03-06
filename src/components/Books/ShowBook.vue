@@ -40,7 +40,6 @@
           <button class="btn btn-danger" style="width:100px; text-align: center; margin: auto;" @click="deleteBook(books._id)">
             Delete
           </button>
-          <!-- <button v-if="books.cart" @click="add(book)" :disabled="book.cart">Book added to cart</button>  -->
         </div>
       </div>
     </div>
@@ -122,9 +121,6 @@ export default {
         });
     },
   },
-  // mounted(){
-  //   this.getData()
-  // },
   setup() {
     const filePath = ref(null);
     const { user } = getUser();
