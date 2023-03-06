@@ -40,6 +40,14 @@
                 />
               </svg>
             </button>
+            <router-link to="/delete-audiobook">
+            <button
+              class="btn btn-danger"
+              @click="deleteaudiobook(Audiobook._id)"
+            >
+              Delete
+            </button>
+          </router-link>
           </div>
         </div>
       </div>
@@ -105,7 +113,22 @@ export default {
           console.log(error);
         });
     },
+    deleteaudiobook(id) {
+      let apiURL = `http://localhost:4000/api/delete-audiobook/${id}`;
+      let indexOfArrayItem = this.Audiobook.findIndex((i) => i._id === id);
+
+      if (window.confirm("Do you really want to delete?")) {
+        axios
+          .delete(apiURL)
+          .then(() => {
+            this.Audiobook.splice(indexOfArrayItem, 1);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
   },
+},
   setup() {
     const { user } = getUser();
     const savedRegistry = ref(new Map());
@@ -114,7 +137,7 @@ export default {
 
     return { id, savedRegistry };
   },
-};
+}
 </script>
 
 <style scoped>

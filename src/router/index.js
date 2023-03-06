@@ -68,8 +68,6 @@ const router = createRouter({
             requiresAuth: true,
         },
         },
-        //{ path: '/edit/id' , name: 'Edit', component: Edit, },
-        //{ path: '/booklist', name: 'BookList', component: BookList}
         { path: '/dashboard', beforeEnter: requireAuth, name: 'dashboard', component: Dashboard},
         { path: '/new', name: 'new-client', component: NewClient},
         { path: '/edit/:c_id', name: 'edit-client', component: EditClient},
@@ -78,7 +76,6 @@ const router = createRouter({
         { path: '/read-pagesa', name: 'read-pagesa', component: ReadPagesa},
         { path: '/addbook', beforeEnter: requireAdmin, name: 'AddBook', component: AddBook},
         { path: '/:book_id', name: 'view-book', component: ViewBook},
-        // { path: '/edit/:book_id', name: 'edit-book', component: EditBook},
         { path: '/all-users', 
         name: 'all-users', 
         component: Admin,
