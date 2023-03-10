@@ -4,7 +4,6 @@ import { onMounted, ref } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "@firebase/auth";
 import { useRouter } from "vue-router";
 import SidebarLink from "./SidebarLink.vue";
-import { Icon } from "@iconify/vue";
 import Login from "@/views/Login.vue";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -50,7 +49,6 @@ const email = ref("");
       </span>
       <span v-else>e-books</span>
     </h1>
-    <Icon icon="dashicons:admin-home" />
     <SidebarLink to="/">Home</SidebarLink>
     <SidebarLink to="/feed">Feed</SidebarLink>
     <SidebarLink v-if="!user" to="/signup">Sign Up</SidebarLink>
@@ -71,28 +69,14 @@ const email = ref("");
     <SidebarLink to="" class="nav-link" v-if="user" @click="handleLogout"
       >Log Out</SidebarLink
     >
-    
-    <!-- <SidebarLink to="/contact">Contact Us</SidebarLink> -->
-    <!-- <router-link to="/signup">
-      <button class="btn btn-outline-success">Get Started</button>
-    </router-link> -->
 
     <span
       class="collapse-icon"
       :class="{ 'rotate-180': collapsed }"
       @click="toggleSidebar"
     >
-      <!-- <i class="fas fa-angle-left"></i> -->
       <img src="../../assets/arrow-left.png" width="20" height="20" />
     </span>
-
-    <!-- <nav>
-            <router-link to="/"> Home </router-link> |
-            <router-link to="/feed"> Feed </router-link> |
-            <router-link to="/signup"> Sign Up </router-link> |
-            <router-link to="/login"> Log In </router-link> |
-            <button @click="handleLogOut" v-if="isLoggedIn">Log Out</button>
-        </nav> -->
   </div>
 </template>
 

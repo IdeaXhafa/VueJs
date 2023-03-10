@@ -1,46 +1,49 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col">
-        <div
-          class="card h-10"
-          style="width: 250px"
-          v-for="Audiobook in Audiobook"
-          :key="Audiobook._id"
-        >
-          <div class="card-block">
-            <p>Audiobook</p>
-            <h2 class="card-title">{{ Audiobook.title }}</h2>
-            <h3 class="card-title" style="color: #486856">
-              {{ Audiobook.author }}
-            </h3>
-            <p class="card-text">{{ Audiobook.description }}</p>
-            <p class="card-text">{{ Audiobook.listeners }}</p>
-            <p class="card-text">
-              {{ Audiobook.rating }} / 10
-              <img src="../../assets/star.png" class="star" />
-            </p>
-            <p class="card-text">
-              <small class="text-muted">{{ Audiobook.price }} $</small>
-            </p>
-            <button @click="handleSubmit(Audiobook)">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-bookmarks"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"
-                />
-                <path
-                  d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"
-                />
-              </svg>
-            </button>
-            <router-link to="/delete-audiobook">
+      <div
+        class="col card"
+        v-for="Audiobook in Audiobook"
+        :key="Audiobook._id"
+        style="max-width: 280px"
+      >
+        <div class="card-block">
+          <p>Audiobook</p>
+          <h2 class="card-title">{{ Audiobook.title }}</h2>
+          <h3 class="card-title" style="color: #486856">
+            {{ Audiobook.author }}
+          </h3>
+          <p class="card-text">{{ Audiobook.description }}</p>
+          <strong
+            ><p class="card-text">
+              {{ Audiobook.listeners }} listeners
+            </p></strong
+          >
+          <p class="card-text">
+            {{ Audiobook.rating }} / 10
+            <img src="../../assets/star.png" class="star" />
+          </p>
+          <p class="card-text">
+            <small class="text-muted">{{ Audiobook.price }} $</small>
+          </p>
+          <button @click="handleSubmit(Audiobook)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-bookmarks"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1H4z"
+              />
+              <path
+                d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1z"
+              />
+            </svg>
+          </button>
+          <router-link to="/delete-audiobook">
             <button
               class="btn btn-danger"
               @click="deleteaudiobook(Audiobook._id)"
@@ -48,7 +51,6 @@
               Delete
             </button>
           </router-link>
-          </div>
         </div>
       </div>
     </div>
@@ -56,6 +58,15 @@
   <router-link to="/addaudiobook">
     <button class="btn btn-primary">Add audiobook</button>
   </router-link>
+  <div
+    class="card mb-4 mb-lg-0"
+    style="width: 800px; margin: auto; position: absolute; bottom: 30px; left: 280px;"
+  >
+    <div class="card-body">
+      <p><strong>Average Rating of our Audiobooks</strong></p>
+      <p>{{ averageRating }} / 10</p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -127,8 +138,15 @@ export default {
             console.log(error);
           });
       }
+    },
   },
-},
+  computed: {
+    averageRating() {
+      const sum = this.Audiobook.reduce((acc, cur) => acc + cur.rating, 0);
+      const count = this.Audiobook.length;
+      return count > 0 ? (sum / count).toFixed(2) : 0;
+    },
+  },
   setup() {
     const { user } = getUser();
     const savedRegistry = ref(new Map());
@@ -137,7 +155,7 @@ export default {
 
     return { id, savedRegistry };
   },
-}
+};
 </script>
 
 <style scoped>

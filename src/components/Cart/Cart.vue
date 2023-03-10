@@ -43,41 +43,6 @@
 
               </div>
             </div>
-            <!-- <div
-              class="card-body"
-              v-for="Books in Books"
-              v-bind:key="Books._id"
-            >
-              <div class="row">
-                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                  <div
-                    class="bg-image hover-overlay hover-zoom ripple rounded"
-                    data-mdb-ripple-color="light"
-                  >
-                    <img
-                      v-bind:src="Books.photoUrl"
-                      style="
-                        height: 200px;
-                        display: block;
-                        margin-left: auto;
-                        margin-right: auto;
-                        width: 80%;
-                      "
-                    />
-                  </div>
-                </div>
-
-                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                  <p>
-                    <strong>{{ Books.title }}</strong>
-                  </p>
-                  <p>{{ Books.author }}</p>
-                </div>
-
-                <button class="btn btn-danger" style="height:50px;">Remove from Cart</button>
-
-              </div> 
-            </div>-->
           </div>
           <div class="card mb-4 mb-lg-0">
             <div class="card-body">

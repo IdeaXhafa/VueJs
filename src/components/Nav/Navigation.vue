@@ -32,9 +32,9 @@
                     </li>
                     <SidebarLink to="/cart">Your Cart</SidebarLink>
                     <SidebarLink to="/saved">Saved</SidebarLink>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <SidebarLink to="/read-pagesa">Pagesa</SidebarLink>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <SidebarLink to="/dash">Dashboard</SidebarLink>
                     </li>
