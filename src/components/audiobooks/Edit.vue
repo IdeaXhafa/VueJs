@@ -5,7 +5,7 @@
         <div class="modal-header">
           <h4 class="modal-title">Edit Audiobook</h4>
           <router-link
-            to="/showbestseller"
+            to="/audiobook"
             data-dismiss="modal"
             aria-hidden="true"
             type="button"
@@ -71,7 +71,7 @@
         </div>
 
         <div class="modal-footer">
-          <router-link to="/showbestseller" class="btn btn-dark"
+          <router-link to="/audiobook" class="btn btn-dark"
             >Cancel</router-link
           >
           <button type="submit" class="btn btn-primary float-right">
@@ -94,7 +94,7 @@ export default {
     };
   },
   created() {
-    let apiURL = "http://localhost:4000/api/update-bestseller/";
+    let apiURL = "http://localhost:4000/api/update-audiobook/";
     axios.get(apiURL + this.$route.params).then((res) => {
       console.log(this.$route.params);
       this.audiobook = res.data;
@@ -102,13 +102,13 @@ export default {
   },
   methods: {
     handleUpdateForm() {
-      let apiURL = `http://localhost:4000/api/update-bestseller/${this.$route.params.id}`;
+      let apiURL = `http://localhost:4000/api/update-audiobook/${this.$route.params.id}`;
 
       axios
         .put(apiURL, this.audiobook)
         .then((res) => {
           console.log(res);
-          this.$router.push("/view");
+          this.$router.push("/audiobook");
         })
         .catch((error) => {
           console.log(error);

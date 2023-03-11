@@ -68,6 +68,9 @@
   <router-link to="/addaudiobook">
     <button class="btn btn-primary">Add audiobook</button>
   </router-link>
+  <router-link to="/editaudiobook">
+    <button class="btn btn-secondary">Edit audiobook</button>
+  </router-link>
   <div
     class="card mb-4 mb-lg-0"
     style="width: 800px; margin: auto; position: absolute; bottom: 30px; left: 280px;"
