@@ -9,6 +9,16 @@
       >
         <div class="card-block">
           <p>Audiobook</p>
+          <img
+          v-bind:src="Audiobook.photoUrl"
+          style="
+            height: 200px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+          "
+        />
           <h2 class="card-title">{{ Audiobook.title }}</h2>
           <h3 class="card-title" style="color: #486856">
             {{ Audiobook.author }}

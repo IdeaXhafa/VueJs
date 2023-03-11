@@ -6,7 +6,9 @@ const Schema = mongoose.Schema({
   price: Number,
   listeners: Number,
   description: String,
-  rating: Number
+  rating: Number,
+  photoUrl: String,
+  filePath: String
 })
 
 const model = mongoose.model('Audiobook', Schema)

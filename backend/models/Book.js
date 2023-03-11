@@ -12,25 +12,3 @@ const Schema = mongoose.Schema({
 
 const model = mongoose.model('Book', Schema)
 export default model;
-
-// let bookSchema = new Schema(
-//   {
-//     title: {
-//       type: String,
-//     },
-//     author: {
-//       type: String,
-//     },
-//     photoUrl: {
-//       type:String,
-//     },
-//     filePath: {
-//       type:String,
-//     }
-//   },
-//   {
-//     collection: 'book',
-//   },
-// )
-
-// module.exports = mongoose.model('Book', bookSchema)
