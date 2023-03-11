@@ -16,6 +16,7 @@
                   <th scope="col">Rating</th>
                   <th scope="col">Price</th>
                   <th scope="col">Favorite</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
@@ -223,6 +224,13 @@
                       </label>
                     </div>
                   </td>
+                  <td>
+                    <router-link to="/cart">
+            <button @click="handleSubmit(Audiobook)" class="btn btn-success">
+              Add to Cart
+            </button>
+          </router-link>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -230,7 +238,7 @@
           <router-link to="/audiobook">
             <button class="btn btn-primary">Go back</button>
           </router-link>
-          <router-link to="/audiobook">
+          <router-link to="/cart">
             <button class="btn btn-success">Go to Cart</button>
           </router-link>
         </div>
@@ -242,6 +250,8 @@
 <script>
 import getUser from "@/getUser";
 import axios from "axios";
+import { ref } from "@vue/reactivity";
+import router from "@/router";
 
 export default {
   data() {
@@ -249,24 +259,58 @@ export default {
       Audiobook: [],
     };
   },
-  created() {
+  async created() {
+    let apiURL2 = "http://localhost:4000/api/get-cart/";
+    await axios
+      .get(apiURL2 + this.id)
+      .then((res) => {
+        res.data.forEach((d) => {
+          this.cartRegistry.set(d._id, d);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     let apiURL = "http://localhost:4000/api/get-saved/";
     axios
       .get(apiURL + this.id)
       .then((res) => {
-        console.log(res.data);
-        this.Audiobook = res.data;
+        this.Audiobook = [];
+        res.data.forEach((d) => {
+          if (!this.cartRegistry.has(d._id)) {
+            this.Audiobook.push(d);
+          }
+        });
+        // console.log(res.data);
+        // this.Audiobook = res.data;
       })
       .catch((error) => {
         console.log(error);
       });
   },
+  methods: {
+    handleSubmit: function (Audiobook) {
+      let apiURL = "http://localhost:4000/api/create-cart";
+      Audiobook.userId = this.id;
+
+      axios
+        .post(apiURL, Audiobook)
+        .then(() => {
+          router.push("/cart");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
   setup() {
     const { user } = getUser();
+    const cartRegistry = ref(new Map());
 
     const id = user.value.uid;
 
-    return { id };
+    return { id , cartRegistry};
   },
 };
 </script>

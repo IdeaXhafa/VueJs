@@ -1,14 +1,12 @@
-// const mongoose = require('mongoose')
-
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema({
+  userId: String,
   title: String,
   author: String,
   price: Number,
-  photoUrl: String,
-  filePath: String,
+  isAvailable: String
 })
 
-const model = mongoose.model('Book', Schema)
+const model = mongoose.model('Pay', Schema)
 export default model;

@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
+import store from './components/store'
 
 //import store from './components/store'
 
@@ -26,11 +27,11 @@ import { auth } from "@/firebase";
 // const firebase = initializeApp(firebaseConfig);
 // export const db = getFirestore(firebase);
 let app;
-
 onAuthStateChanged(auth, () => {
   if (!app) {
     app = createApp(App).use(router);
 
+    app.use(store)
     app.mount("#app");
   }
 });

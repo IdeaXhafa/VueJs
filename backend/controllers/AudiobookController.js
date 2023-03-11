@@ -2,6 +2,7 @@ import AudiobookModel from '../models/Audiobook';
 import { StatusCodes,  ReasonPhrases  } from 'http-status-codes';
 import createAudiobookSchema from '../validators/audiobooks/create'
 import updateAudiobookSchema from '../validators/audiobooks/update'
+import PinkModel from '../models/Pink'
 
 const controller = {
     list: async(req, res) => {
@@ -32,9 +33,12 @@ const controller = {
         }
     
         const newCategory = new AudiobookModel(req.body);
+
+        const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'created', description: 'Audiobook'});
     
         try {
             await newCategory.save();
+            await logs.save();
         
             return res.json(newCategory);
         } catch (err) {
@@ -57,8 +61,11 @@ const controller = {
                 })
         }
 
+        const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'updated', description: 'Audiobook'});
+
         try {
             await AudiobookModel.updateOne({ _id: req.params.Id }, req.body);
+            await logs.save();
         
             const updatedCategory = await AudiobookModel.find({ _id: req.params.Id });
         
@@ -75,9 +82,13 @@ const controller = {
     },
     delete: async(req, res) => {
         const Id = req.params.id;
+
+        const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'deleted', description: 'Audiobook'});
     
         try {
             await AudiobookModel.deleteOne({ _id: Id });
+            await logs.save();
+            
             res.json({ deleted: true });
         } catch (err) {
             res.status(StatusCodes.NOT_FOUND).json({ message: ReasonPhrases.NOT_FOUND});

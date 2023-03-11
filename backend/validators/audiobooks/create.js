@@ -6,7 +6,9 @@ const createAudiobookSchema = Joi.object({
     price: Joi.number().required(),
     listeners: Joi.number().required(),
     description: Joi.string().required(),
-    rating: Joi.number().required()
+    rating: Joi.number().required(),
+    photoUrl: Joi.string().required(),
+    filePath: Joi.string().required(),
 });
 
 export default createAudiobookSchema;

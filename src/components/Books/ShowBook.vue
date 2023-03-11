@@ -1,19 +1,8 @@
 <template>
   <h3>Books</h3>
-  <div class="container" v-for="books in books" v-bind:key="books._id">
+  <div class="container">
     <div class="row">
-      <div class="col">
-        <div
-          class="card h-100"
-          style="
-            width: 30%;
-            max-width: 350%;
-            height: 110%;
-            max-height: 110%;
-            padding: 0;
-            border-radius: 25px;
-          "
-        >
+      <div class="col card" v-for="books in books" v-bind:key="books._id" style="max-width:280px;">
           <img
             v-bind:src="books.photoUrl"
             style="
@@ -42,7 +31,6 @@
           </button>
         </div>
       </div>
-    </div>
   </div>
   <router-link to="/addbook">
     <button class="btn btn-primary">Add a Book</button>
