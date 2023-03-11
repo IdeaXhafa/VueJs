@@ -52,6 +52,7 @@ const router = createRouter({
         { path: '/editbestseller/:id',name: 'editbestseller', component: () => import("../components/bestsellers/EditComponent.vue")},
         { path: '/edit-book/:id',name: 'edit-book', component: () => import("../components/Books/EditBook.vue")},
         { path: "/chat", component: () => import("../views/Chat.vue")},
+        { path: "/pay", component: () => import("../components/pay/Pay.vue")},
         {
             path: '/view',
             name: 'view',
