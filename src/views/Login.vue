@@ -87,26 +87,6 @@ const signInWithGoogle = () => {
     })
 }
 
-// const isLoggedIn = ref(false);
-
-// let auth;
-// onMounted(()=> {
-//   auth = getAuth();
-//   onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//       isLoggedIn.value = true;
-//     } else {
-//       isLoggedIn.value = false;
-//     }
-//   });
-// });
-
-// const handleLogOut = () => {
-//   signOut(auth).then(() => {
-//     router.push("/");
-//   });
-// };
-
 </script>
 
 <style scoped>

@@ -70,40 +70,6 @@ import router from "@/router";
 
 export default {
   name: "addaudiobook",
-  // data() {
-  //   return {
-  //     audiobook: {
-  //       title: "",
-  //       author: "",
-  //       description: "",
-  //       price: "",
-  //       rating: "",
-  //       listeners: "",
-  //     },
-  //   };
-  // },
-  // methods: {
-  //   handleSubmit() {
-  //     let apiURL = "http://localhost:4000/api/create-audiobook";
-
-  //     axios
-  //       .post(apiURL, this.audiobook)
-  //       .then(() => {
-  //         this.$router.push("/audiobook");
-  //         this.audiobook = {
-  //           title: "",
-  //           author: "",
-  //           description: "",
-  //           price: "",
-  //           rating: "",
-  //           listeners: "",
-  //         };
-  //       })
-  //       .catch((error) => {
-  //         console.log(error.response.data);
-  //       });
-  //   },
-  // },
   setup() {
     const file = ref2(null);
     const fileError = ref2(null);

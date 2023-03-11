@@ -57,15 +57,6 @@ import addtocart from "../Cart/addtocart.vue";
 import router from "@/router";
 import { getAuth } from "@firebase/auth";
 import getUser from "@/getUser";
-import {
-  Container,
-  H1,
-  H2,
-  Icon,
-  PP,
-  Card,
-  Wrapper,
-} from "./BestsellersElements";
 
 export default {
   components: { addtocart },
