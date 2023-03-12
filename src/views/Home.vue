@@ -33,8 +33,7 @@ import { ShowBook } from "../components/Books/ShowBook.vue";
                         <div class="card bg-light border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
-                                <h2 class="fs-4 fw-bold">Fresh new layout</h2>
-                                <p class="mb-0">With Bootstrap 5, we've created a fresh new layout for this template!</p>
+                                <h2 class="fs-4 fw-bold">Easy Returns</h2>
                             </div>
                         </div>
                     </div>
@@ -42,8 +41,7 @@ import { ShowBook } from "../components/Books/ShowBook.vue";
                         <div class="card bg-light border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-cloud-download"></i></div>
-                                <h2 class="fs-4 fw-bold">Free to download</h2>
-                                <p class="mb-0">As always, Start Bootstrap has a powerful collectin of free templates.</p>
+                                <h2 class="fs-4 fw-bold">Call us anytime</h2>
                             </div>
                         </div>
                     </div>
@@ -64,58 +62,7 @@ import { ShowBook } from "../components/Books/ShowBook.vue";
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; 2023</p></div>
         </footer>
-  <!-- <div class="home">
-    <img src="../assets/b.jpeg" class="bookPic" />
-    <br />
-    <br />
-    <h1>Welcome to e-books!</h1>
-    <h3>
-      We assure quality <br />
-      and top prices <br />
-      for all our sales!
-    </h3>
-    <router-link to="./showbook"
-      ><button class="btn btn-primary">SHOP NOW</button></router-link
-    >
-  </div>
-  <br /><br /><br /><br /><br /><br />
-  <div class="icons">
-    <div class="content1">
-      <Icon icon="dashicons:buddicons-pm" />
-      <h3>free shipping</h3>
-      <p>order over $100</p>
-    </div>
-    <li>
-      {{ user }}
-    </li>
-
-    <div class="content2">
-      <Icon icon="openmoji:add-button" />
-      <h3>secure payment</h3>
-      <p>100 % secure payment</p>
-    </div>
-    <div class="content3">
-      <Icon icon="dashicons:image-rotate" />
-      <h3>easy returns</h3>
-      <p>10 days returns</p>
-    </div>
-    <div class="content4">
-      <Icon icon="dashicons:buddicons-buddypress-logo" />
-      <h3>24/7 support</h3>
-      <p>call us anytime</p>
-    </div>
-  </div>
-  <ShowBook />
-  <div class="deals">
-    <h3 style="align-items: center">Deal of the Day !</h3>
-    <h2>Up To 50 % Off</h2>
-    <h3>For the 5 first purchases as a client</h3>
-    <h6>Want to become a client?</h6>
-    <router-link to="./signup"
-      ><button class="btn btn-secondary">Join Us Now</button></router-link
-    >
-  </div>
-  <Footer /> -->
+    
 </template>
 
 
