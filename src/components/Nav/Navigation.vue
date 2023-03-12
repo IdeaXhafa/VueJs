@@ -2,7 +2,6 @@
     <header>
         <div class="fixed-top">
             <nav class="navbar navbar-expand-lg navbar-light" id="navi">
-                <a class="navbar-brand" href="#">e-books</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span :class="{ 'rotate-180': collapsed }" @click="toggleSidebar" class="navbar-toggler-icon"></span>
                 </button>
@@ -30,8 +29,9 @@
                     <li class="nav-item">
                     <SidebarLink to="/showbestseller">Best Sellers</SidebarLink>
                     </li>
-                    <SidebarLink to="/cart">Your Cart</SidebarLink>
+                    <SidebarLink to="/cart">Cart</SidebarLink>
                     <SidebarLink to="/saved">Saved</SidebarLink>
+                    <SidebarLink to="/pay">Payment</SidebarLink>
                     <!-- <li class="nav-item">
                         <SidebarLink to="/read-pagesa">Pagesa</SidebarLink>
                     </li> -->

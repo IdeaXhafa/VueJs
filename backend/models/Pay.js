@@ -1,10 +1,8 @@
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema({
-  userName: String,
-  email: String,
+  card: Number,
   price: Number,
-  card: Number
 })
 
 const model = mongoose.model('Pay', Schema)

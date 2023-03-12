@@ -1,4 +1,3 @@
-
 import PayModel from '../models/Pay';
 import { StatusCodes,  ReasonPhrases  } from 'http-status-codes';
 
@@ -9,7 +8,7 @@ const controller = {
     },
     find: async(req, res) => {
         try {
-            const category = await PayModel.findOne({ _id: req.params.Id });
+            const category = await PayModel.findOne({ _id: req.params.id });
     
             if (!category) throw Error("Category not found");
             return res.json(category);
@@ -20,16 +19,7 @@ const controller = {
     create: async(req, res) => {
         console.log('req.body - ', req.body);
     
-        if (validationResult.error) {
-            return res
-                .status(StatusCodes.UNAUTHORIZED)
-                .json({
-                    message: ReasonPhrases.UNAUTHORIZED,
-                    error: validationResult.error.message
-                });
-        }
-    
-        const newCategory = new PaytModel(req.body);
+        const newCategory = new PayModel(req.body);
     
         try {
             await newCategory.save();

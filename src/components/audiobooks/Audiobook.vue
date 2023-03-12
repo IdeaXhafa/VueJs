@@ -10,15 +10,15 @@
         <div class="card-block">
           <p>Audiobook</p>
           <img
-          v-bind:src="Audiobook.photoUrl"
-          style="
-            height: 200px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 50%;
-          "
-        />
+            v-bind:src="Audiobook.photoUrl"
+            style="
+              height: 200px;
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+              width: 50%;
+            "
+          />
           <h2 class="card-title">{{ Audiobook.title }}</h2>
           <h3 class="card-title" style="color: #486856">
             {{ Audiobook.author }}
@@ -61,6 +61,9 @@
               Delete
             </button>
           </router-link>
+          <router-link :to="'/editaudiobook/' + Audiobook._id">
+            <button class="btn btn-secondary">Edit</button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -68,12 +71,15 @@
   <router-link to="/addaudiobook">
     <button class="btn btn-primary">Add audiobook</button>
   </router-link>
-  <router-link to="/editaudiobook">
-    <button class="btn btn-secondary">Edit audiobook</button>
-  </router-link>
   <div
     class="card mb-4 mb-lg-0"
-    style="width: 800px; margin: auto; position: absolute; bottom: 30px; left: 280px;"
+    style="
+      width: 800px;
+      margin: auto;
+      position: absolute;
+      bottom: 30px;
+      left: 280px;
+    "
   >
     <div class="card-body">
       <p><strong>Average Rating of our Audiobooks</strong></p>

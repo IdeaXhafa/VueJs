@@ -75,7 +75,7 @@ const controller = {
         
     },
     delete: async(req, res) => {
-        const Id = req.params.Id;
+        const Id = req.params.id;
     
         try {
             await SavedModel.deleteOne({ _id: Id });

@@ -40,6 +40,7 @@ const router = createRouter({
         { path: "/signup", component: () => import("../views/Signup.vue")},
         { path: "/login",name: 'login', component: () => import("../views/Login.vue")},
         { path: "/thankyou", component: () => import("../components/contact/ThankYou.vue")},
+        { path: "/done", component: () => import("../components/pay/Done.vue")},
         { path: "/logs",beforeEnter: requireAdmin, component: () => import("../components/Logs.vue")},
         { path: "/send-message", component: () => import("../components/contact/CreateComponent.vue")},
         { path: "/get-messages", component: () => import("../components/contact/ListComponent.vue")},
@@ -51,6 +52,7 @@ const router = createRouter({
         { path: '/addbestseller',name: 'addbestseller', component: () => import("../components/bestsellers/CreateComponent.vue")},
         { path: '/editbestseller/:id',name: 'editbestseller', component: () => import("../components/bestsellers/EditComponent.vue")},
         { path: '/edit-book/:id',name: 'edit-book', component: () => import("../components/Books/EditBook.vue")},
+        { path: '/editaudiobook/:id',name: 'editaudiobook', component: () => import("../components/audiobooks/Edit.vue")},
         { path: "/chat", component: () => import("../views/Chat.vue")},
         { path: "/pay", component: () => import("../components/pay/Pay.vue")},
         {
@@ -84,7 +86,7 @@ const router = createRouter({
         }
         },
         { path: '/create-user', name: 'create-user', component: CreateUser},
-        { path: '/dash', component: () => import("../components/admin/dashboard.vue")}
+        { path: '/dash',beforeEnter: requireAdmin, component: () => import("../components/admin/dashboard.vue")}
     ],
 });
 

@@ -103,10 +103,11 @@
                   <span><strong>{{ totalPrice }} $</strong></span>
                 </li>
               </ul>
-
+              <router-link to="/pay">
               <button type="button" class="btn btn-primary btn-lg btn-block">
                 Go to checkout
               </button>
+            </router-link>
             </div>
           </div>
         </div>

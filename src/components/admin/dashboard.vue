@@ -1,18 +1,147 @@
 <template>
-    <div>
-        <h1>Welcome back, Admin !</h1>
+  <div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     </div>
-    <router-link to="/all-users">
-        <button class="btn btn-primary">View All Users</button>
-    </router-link>
-    <router-link to="/create-user">
-        <button class="btn btn-secondary">Create a User</button>
-    </router-link>
+
+    <!-- Content Row -->
+    <div class="row">
+      <!-- Earnings (Monthly) Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div
+                  class="
+                    text-xs
+                    font-weight-bold
+                    text-primary text-uppercase
+                    mb-1
+                  "
+                >
+                  Books
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                  $40,000
+                </div>
+                <router-link to="/addbook">
+                  <button class="btn btn-primary">Add</button>
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Earnings (Monthly) Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div
+                  class="
+                    text-xs
+                    font-weight-bold
+                    text-success text-uppercase
+                    mb-1
+                  "
+                >
+                  Best sellers
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                  $215,000
+                </div>
+                <router-link to="/addbestseller">
+                  <button class="btn btn-success">Add</button>
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Earnings (Monthly) Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div
+                  class="text-xs font-weight-bold text-info text-uppercase mb-1"
+                >
+                  Audio books
+                </div>
+                <div class="row no-gutters align-items-center">
+                  <div class="col-auto">
+                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                      50%
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="progress progress-sm mr-2">
+                      <div
+                        class="progress-bar bg-info"
+                        role="progressbar"
+                        style="width: 50%"
+                        aria-valuenow="50"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <router-link to="/addaudiobook">
+                  <button class="btn btn-secondary">Add</button>
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending Requests Card Example -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div
+                  class="
+                    text-xs
+                    font-weight-bold
+                    text-warning text-uppercase
+                    mb-1
+                  "
+                >
+                  Logs
+                </div>
+                <router-link to="/logs">
+                  <button class="btn btn-warning">View</button>
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-link to="/all-users">
+    <button class="btn btn-primary">View All Users</button>
+  </router-link>
+  <router-link to="/create-user">
+    <button class="btn btn-secondary">Create a User</button>
+  </router-link>
 </template>
 
-<script>
+<!-- <script>
+export default {
+  name: "dash",
+};
+</script> -->
 
-export default ({
-    name: 'dash',
-})
-</script>
+<!-- <script>
+import chart from "./js/chart-area-demo.js"
+</script> -->

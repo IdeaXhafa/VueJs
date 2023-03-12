@@ -64,10 +64,10 @@ const controller = {
         const logs = new PinkModel({ userId: req.body.userId , data: Date.now() , type: 'updated', description: 'Audiobook'});
 
         try {
-            await AudiobookModel.updateOne({ _id: req.params.Id }, req.body);
+            await AudiobookModel.updateOne({ _id: req.params.id }, req.body);
             await logs.save();
         
-            const updatedCategory = await AudiobookModel.find({ _id: req.params.Id });
+            const updatedCategory = await AudiobookModel.find({ _id: req.params.id });
         
             return res.json(updatedCategory);
         } catch (err) {
